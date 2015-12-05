@@ -205,7 +205,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'WhenDocumentation'
+htmlhelp_basename = 'when-command'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -227,7 +227,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'WhenDocumentation.tex', 'When Documentation',
+    (master_doc, 'when-command.tex', 'When Documentation',
      'Francesco Garosi', 'manual'),
 ]
 
@@ -257,7 +257,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'whendocumentation', 'When Documentation',
+    (master_doc, 'when-command', 'When Documentation',
      [author], 1)
 ]
 
@@ -271,8 +271,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'WhenDocumentation', 'When Documentation',
-     author, 'WhenDocumentation', 'Documentation for the When Gnome Scheduler.',
+    (master_doc, 'when-command', 'When Documentation',
+     author, 'when-command', 'Documentation for the When Gnome Scheduler.',
      'Miscellaneous'),
 ]
 
