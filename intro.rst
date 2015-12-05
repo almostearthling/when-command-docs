@@ -26,7 +26,7 @@ looks more useful and usable than the usual *cron* daemon, at least because it
 allows some more options to schedule tasks than just the system time. I needed
 such an utility to perform some file synchronizations when the workstation is
 idle, and decided to write my own task scheduler targeted to Ubuntu. The
-scheduler runs in the background, and it displays an indicator applet icon for
+scheduler runs in the background, and displays an indicator applet icon for
 user interaction.
 
 It is not generally intended as a replacement to cron_ and the
