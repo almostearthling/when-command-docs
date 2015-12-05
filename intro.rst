@@ -7,6 +7,8 @@ It interacts with the user through a GUI, where the user can define tasks and
 conditions, as well as relationships of causality that bind conditions to
 tasks. When a condition is bound to a task, it is said to trigger a task.
 
+**When** is available in source_ or packaged_ form on GitHub_.
+
 .. image:: _static/when_screenshot_part.png
 
 The purpose of this small utility is to provide the user, possibly without
@@ -41,5 +43,8 @@ the default configuration, the delay can reach a couple of minutes in the worst
 case.
 
 
+.. _source: https://github.com/almostearthling/when-command
+.. _packaged: https://github.com/almostearthling/when-command/releases
+.. _GitHub: https://github.com/
 .. _cron: https://en.wikipedia.org/wiki/Cron
 .. _`Gnome Task Scheduler`: http://gnome-schedule.sourceforge.net/
