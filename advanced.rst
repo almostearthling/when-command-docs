@@ -1,6 +1,6 @@
-=============================
-When Guide: Advanced Features
-=============================
+=================
+Advanced Features
+=================
 
 This chapter describes the advanced features of **When**. Some of these can be
 handy for everyday use too, others may require some deeper insight in what
