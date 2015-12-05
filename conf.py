@@ -82,6 +82,7 @@ language = None
 exclude_patterns = [
     '_build',
     '_man',
+    '_olddocs',
 ]
 
 # The reST default role (used for this markup: `text`) to use for all
