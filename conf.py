@@ -256,8 +256,12 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
+# man_pages = [
+#     (master_doc, 'when-command', 'When Documentation',
+#      [author], 1)
+# ]
 man_pages = [
-    (master_doc, 'when-command', 'When Documentation',
+    ('manpage', 'when-command', 'When Documentation',
      [author], 1)
 ]
 
