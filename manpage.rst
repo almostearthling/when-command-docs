@@ -19,14 +19,14 @@ of the applet. Item names must:
 * begin with either a letter or a number
 * contain only letters, numbers, underscores or dashes (no spaces)
 
-and are case sensitive. A *Task* consists of a command, which will be run in
+and are case sensitive. A *Task* consists of a command, which will run in
 the default shell, along with an environment and some hints on how to consider
 it successful or not. *Tasks* correspond to a single command line each: this
 means that they can consist of several shell commands each, as long as they can
 fit on a single shell line -- for instance using shell separators (such as
 semicolons, ``;``) or other conjunctions or disjunctions. A *Condition*
 consists of an inherent *test* or associated *event*, a set of *Tasks* and
-instructions on how tasks have to be run in case the test succeeds or the event
+instructions on how tasks should run in case the test succeeds or the event
 occurs. There is no concept of *failure* in conditions: a condition can either
 occur or not.
 
@@ -67,7 +67,7 @@ within different task sets.
 
 The **When** applet can be thought of as a main loop that incorporates a
 *clock* and an *event listener*. Whenever the clock ticks, conditions are
-evaluated, and when an event is caught a token is issued for the associated
+evaluated, and when an event is caught a *token* is issued for the associated
 condition to evaluate to `true`, so that the task set that it surrounds can
 be run. Conditions that do not receive a token or whose test evaluates to
 `false` are skipped for further evaluation.
@@ -82,16 +82,16 @@ based conditions.
 
 There is another type of entity that can be defined, for which the naming
 convention is the same as for *Tasks* and *Conditions*, that is
-*Signal Handlers*, that can be used to define special *events* to be caught by
+*Signal Handlers*: these can be used to define special *events* to be caught by
 *Conditions* when certain *DBus Signals* are emitted. This advanced feature is
-intended for users with a background on *DBus* specifications and is not for
+intended for users with a background on *DBus* specification and is not for
 general use. [#busevent]_
 
 
 Command Line Interface
 ======================
 
-This section illustrates the command line options that can be used to either
+This paragraph illustrates the command line options that can be used to either
 control the behaviour of a running **When** instance or to handle its
 configuration or persistent state -- consisting of *tasks*, *conditions* and
 *signal handlers*. Some of the options are especially useful to recover when
@@ -177,8 +177,7 @@ The Applet
 ==========
 
 The applet will show up in the indicator tray at startup, which would normally
-occur at login if the user chose to add **When** to the startup applications,
-which is the default behavior when using the suggested installation procedure.
+occur at login if the user chose to add **When** to the startup applications.
 It will read its configuration and start the scheduler in an unattended
 fashion. Whenever one of the user defined conditions is met, the associated
 tasks are executed. A small alarm clock icon will display in the indicator
@@ -317,7 +316,7 @@ There are several types of condition available:
 6. **Based on filesystem changes:** The tasks are run when a certain file
    changes, or when the contents of a directory or its subdirectories change,
    depending on what the user chose to watch -- either a file or a directory.
-   A dialog box can be opened to select what has to be watched. [#inotify]_
+   A dialog box can be used to select what has to be watched. [#inotify]_
 7. **Based on an user defined event:** The user can monitor system events by
    listening to *DBus* signals emitted on either the system bus or the session
    bus. [#busevent]_
@@ -328,23 +327,17 @@ Also, the condition configuration interface allows to decide:
   that is, make an action `recurring`;
 * to run the tasks in a task set concurrently or sequentially: when tasks are
   set to run sequentially, the user can choose to ignore the outcome of tasks
-  or to break the sequence on the first failure or success, selecting the
+  or to break the sequence on the first failure or success by selecting the
   appropriate entry in the box on the right -- tasks that don't check for
   success or failure will *never* stop a sequence;
 * to *suspend* the condition: it will not be tested, but it's kept in the
-  system, inactive until the *Suspend* box is unchecked.
+  system and remains inactive until the *Suspend* box is unchecked.
 
 The selected condition (if any) can be deleted clicking the *Delete* button in
 the dialog box. Every condition must have an *unique name*, if a condition is
 named as an existing one it will replace it. The name *must* begin with an
 alphanumeric character (letter or digit) followed by alphanumerics, dashes and
 underscores.
-
-If a task is triggered by more than one condition almost at the same time,
-*only the first instance of the task will be run*. This behavior is
-intentional, to allow the user to decide to perform a task under more than one
-cirumstance, and to avoid task repetition in case all triggering circumstances
-actually occur.
 
 .. Note::
   - **Shutdown Conditions.** Because of the way applications are notified that
@@ -472,11 +465,11 @@ instance is running.
 The History Window
 ==================
 
-Since logs aren't always easy to deal with, **When** provides an easier
-interface to verify the task results. Tasks failures are also notified
+Since logs aren't always user friendly, **When** provides an easier
+interface to verify task results. Tasks failures are also notified
 graphically via the attention-sign icon and badge notifications, however more
 precise information can be found in the *History* box. This shows a list of the
-most recently tasks that where launched by the current applet instance (the
+most recent tasks that have been launched by the running instance (the
 list length can be configured), which reports:
 
 * The start time of the task and its duration in seconds
@@ -506,17 +499,6 @@ conversions could be needed depending on your locale settings.
   simultaneously executed, but this limit can be increased in the applet
   settings_.
 
-.. [#busevent] This is an advanced feature and is not available by default.
-  It has to be enabled in the program settings to be accessible. Refer to the
-  appropriate chapter for more information.
-
-.. [#confhidden] I was doubtful about providing the option, then just decided
-  to implement it and provide a safety net anyway.
-
-.. [#inotify] This is an optional feature, and could lack on some systems:
-  to enable it the ``pyinotify`` library must be installed, please refer to
-  the instructions below.
-
 .. [#deferredevents] Most events are *deferred*, although there are some whose
   associated conditions are immediately evaluated: *startup*, *shutdown*, and
   *suspend* events will cause the respective conditions to immediately trigger
@@ -527,3 +509,14 @@ conversions could be needed depending on your locale settings.
   of condition that are validated immediatly on event occurrences are the
   *command-line* enabled ones that are forced to do so via the ``-r`` (or
   ``--run-condition``) switch.
+
+.. [#busevent] This is an advanced feature and is not available by default.
+  It has to be enabled in the program settings to be accessible. Refer to the
+  appropriate chapter for more information.
+
+.. [#inotify] This is an optional feature, and could lack on some systems:
+  to enable it the ``pyinotify`` library must be installed, please refer to
+  the instructions below.
+
+.. [#confhidden] I was doubtful about providing the option, then just decided
+  to implement it and provide a safety net anyway.

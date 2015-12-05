@@ -14,7 +14,7 @@ Every kind of help is welcome.
 The top panel icons and the emblems used in the application were selected
 within Google's `Material Design`_ icon collection.
 
-Application icon_ by Rafi at GraphicsFuel_.
+The application icon_ has been created by Rafi at GraphicsFuel_.
 
 .. _fitojb: https://github.com/fitojb
 
@@ -42,7 +42,7 @@ are:
 The guidelines specified in UnityLaunchersAndDesktopFiles_ have been roughly
 followed to create the launcher from within the application.
 
-Many hints and valuable information have been found on StackOverflow_ and the 
+Many hints and valuable information have been found on StackOverflow_ and the
 other sites in the StackExchange_ network.
 
 

@@ -25,8 +25,8 @@ with respect to the corresponding ``yum`` and ``rpm`` of RPM-based distros.
 interactive shell examples, and administrative tasks will be prefixed by
 ``sudo`` as the Ubuntu custom suggests. Packages existing in standard
 repositories will be referenced by their Ubuntu names. Since many packagers
-have followed almost the same conventions to organize base software on Linux
-systems, it should not be too difficult to find package name conversions
+have followed almost the same conventions to organize common packages on Linux
+systems, it should not be too difficult to find appropriate name conversions
 online.
 
 I'll also assume that the following packages have been installed:
@@ -36,9 +36,9 @@ I'll also assume that the following packages have been installed:
 * ``python3-pyinotify``
 
 as suggested in the documentation, as well as the **When** package from the
-provided ``.deb`` file, following the suggested "easy" installation method.
-The applet itself is supposed to be installed and initialized for the user
-via
+provided ``.deb`` file, following the suggested "easy" installation method,
+and that the ``when-command`` executable is in the path. The applet itself
+is assumed to be installed in the desktop and initialized for the user via
 
 ::
 
@@ -49,11 +49,8 @@ provided at initialization time. Long story short, I assume the user to have
 a working default installation of **When** on a recent Ubuntu desktop.
 
 
-Environment
------------
-
 Support Software
-^^^^^^^^^^^^^^^^
+----------------
 
 Some examples will use third-party open source software to perform tasks.
 For example, I wrote **When** to be able to run Unison_ unattended on idle
@@ -65,17 +62,16 @@ the user to install and configure *Unison* and other software.
 
 
 Scripts
-^^^^^^^
+-------
 
 In some cases it's easier to group actions in shell scripts, or even to
 write simple programs, instead of relying on **When**'s sequential task run
 ability. In such cases, apart from being embedded in the tutorial text, the
-scripts will be made downloadable in source form.
+scripts are available in source form for download.
 
 All possible effort is taken to make the scripts portable without modification,
 and to make unavoidable modifications as easy as possible. In the latter case,
-there will be a note that explains how to modify the script to suit the user's
-needs.
+there will be instructions on how to modify the script.
 
 
 The Examples
@@ -84,8 +80,8 @@ The Examples
 The provided examples illustrate simple tasks that could serve as a starting
 point to build more complex actions. Me too, I started developing **When**
 with very simpple goals in mind. Then **When** ended up including more
-interesting features on which I also built some useful tools -- one_ of them
-is even used to help develop **When** itself. The provided examples are about
+interesting features on which I also built some tools -- one_ of them is even
+used to help develop **When** itself. The provided examples are about
 
 * `File Synchronization and Backup`_
 * Housekeeping_
@@ -140,6 +136,10 @@ menu, then start **When** from the *dash*.
 Install and Setup Unison
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
+A brief description follows on how to setup a simple profile in *Unison* for
+the sake of this example. This utility can do much more, please refer to the
+specific documentation for details.
+
 Installation
 ~~~~~~~~~~~~
 
@@ -182,10 +182,11 @@ A basic profile is now created, which is enough for our purposes. The profile
 name, ``DocsBackup``, will be used in the command passed to **When** to let
 it perform the synchronization task.
 
-To let **When** only do routine jobs, run the profile by opening it (use
-the *Open* button after selecting the profile). A dialog box will appear,
-to show that it's the first time that the folders are synchronized: accept
-it, and click *Go* in the *Unison* main window. Now *Unison* can be closed.
+To let **When** only do routine jobs, run the profile interactively by
+opening it (use the *Open* button after selecting the profile). A dialog box
+appears, to show that it's the first time that the folders are synchronized:
+accept it, and click *Go* in the *Unison* main window. Now *Unison* can be
+closed.
 
 
 Create a Task
@@ -204,13 +205,13 @@ entry, the following command line has to be entered:
 
   unison -auto -batch -terse DocsBackup
 
-This tells *Unison* (non-graphical) to perform a synchronization in automatic
-mode, asking no questions and with brief output. The other entries in the
-dialog box are left alone: the working directory is not influent, and we
-only care to know whether or not the synchronization task succeeded by
-interpreting the command exit status. As it mostly happens with command line
-utilities, *Unison* will return a zero exit code on success, and the other
-entries in the box just tell **When** to consider this.
+This tells *Unison* (the non-graphical utility) to perform a synchronization
+in automatic mode, asking no questions and with brief output. The other
+entries in the dialog box are left alone: the working directory is not
+influent, and we only care to know whether or not the synchronization task
+succeeded by interpreting the command exit status. As it mostly happens with
+command line utilities, *Unison* will return a zero exit code on success, and
+the other entries in the box just tell **When** to consider this.
 
 Click *OK* to create the task.
 
@@ -233,7 +234,7 @@ Then we will follow these steps:
 3. Click the *Choose...* button and select the main documents folder (that
    is, ``~/Documents``); alternatively the full path could be entered in the
    *Watch Files* field, which has the same effect.
-4. Click the drop-down list under the list of tasks, and select *SyncDocs*,
+4. Click the drop-down list under the list of tasks, and select ``SyncDocs``,
    then click the *Add* button on its right.
 5. Click *OK* to enter the new condition.
 
@@ -365,7 +366,7 @@ once per session. To create the condition, select *Edit Conditions...* from
 the applet menu. In the *condition editor* choose a meaningful name for the
 item, such as `DocumentsHKeepOnIdle`, and choose *Idle Session* from the
 drop-down list. Specify `3` in the *Idle Minutes* field, then using the
-drop-down list below the task list, choose the *DocumentsHousekeeping* task
+drop-down list below the task list, choose the ``DocumentsHousekeeping`` task
 and click the *Add* button on the right. We can leave the other entries
 alone.
 
@@ -379,8 +380,8 @@ Verify that Everything Worked
 
 After three or four (**When** is a lazy applet, though) minutes, you can open
 the *History* box by selecting *Task History...* from the applet menu. The
-window will show *DocumentsHousekeeping* triggered by *DocumentsHKeepOnIdle*
-in the main list, possibly among other tasks.
+window will show ``DocumentsHousekeeping`` triggered by
+``DocumentsHKeepOnIdle`` in the main list, possibly among other tasks.
 
 .. image:: _static/s02_hkeep-ver01.png
 
@@ -388,7 +389,7 @@ If you click the task line, you can verify what happened in the *Output* and
 *Errors* tab below: because the script writes the name of each file it deletes
 to *stdout*, the file names appear in the *Output* pane. Also note that the
 desktop trash bin is now full, because ``Sample File.txt~`` was moved there.
-As the condition from the previous example (*SyncDocsOnChanges*) has not been
+As the condition from the previous example (``SyncDocsOnChanges``) has not been
 removed, it has been triggered by the above defined task some seconds later.
 
 
@@ -399,7 +400,7 @@ This example shows how to automatically import files from an external storage
 device, such as an USB stick, when it's automatically mounted by the desktop
 manager. Suppose we're using an USB stick to gather data and move it from some
 device to our workstation. We assume that the USB stick has been given a label
-(we'll call it *USB2GB* in this example) and that the device always writes
+(we'll call it ``USB2GB`` in this example) and that the device always writes
 to the same ``Data`` directory on the stick, with no subdirectory: this makes
 things easier, because we can use ``cp`` or ``mv`` to transfer files to the
 hard disk.
@@ -544,7 +545,7 @@ applet menu and carry the following operations when the dialog box appears:
    change and a second drop-down list appears
 3. select *Connect Storage Device* from the following drop-down list, that
    just appeared
-4. using the combo box under the task list, choose *GatherExtStorageData*
+4. using the combo box under the task list, choose ``GatherExtStorageData``
    and hit the *Add* button.
 
 .. image:: _static/s03_usb-cond01.png
@@ -571,7 +572,7 @@ to the destination.
 The Tutorial is an Ongoing Task
 ===============================
 
-This tutorial had been created as a project by itself, and now is part of a
+This tutorial was formerly a project by itself, and now is part of a
 bigger project focusing on structured documentation, also to allow it to
 grow with time: for now it consists of very simple examples, but **When**
 can be also used to automate complex tasks. It can be useful for developers,

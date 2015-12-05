@@ -192,7 +192,7 @@ according to the translated locale. In my opinion such command-line based
 tools should be preferred over other utilities to create the compiled object
 file, in order to avoid to save files in the wrong places or to possibly
 pollute a package generated from the repository clone. However, for the
-editing phase in *Step 2* any tool can be used. If ``poedit`` is used and
+editing phase in *Step 2* any tool can be used. If ``poedit`` is chosen and
 launched from the base directory of the source tree, it should automatically
 recognize ``po`` as the directory containing translation files: open the one
 that you would like to edit and you will be presented with a window that
@@ -214,14 +214,14 @@ directions:
   and notes for the ``--help`` switch output, and the applet name in the
   ``--version`` output.
 
-These guidelines should also help to recognize where a string is used when
+These guidelines should also help to recognize where a string belongs when
 translating a newly created ``xx.po`` file: basically, all (or almost all)
-sentences that begin with a lower case letter belong to console output, and
-strings that begin with a capital letter belong in almost all cases to
+sentences that begin with a lower case letter are used in console output, and
+strings that begin with a capital letter are in almost all cases in the
 graphical UI. However a translator is strongly advised to give **When** a
-try, and explore its English interface (both UI and console, by trying the
-various switches using the ``--verbose`` modifier) to be sure of what he is
-translating. Also, be sure to issue
+try, and explore its English interface (both UI and console, by testing the
+CLI switches using the ``--verbose`` modifier) to be sure of what he is
+translating. Also, the following command should be issued
 
 ::
 
@@ -248,7 +248,7 @@ handled by the Python interpreter. Some more detailed instructions follow:
 7. most of the times, entries in drop down combo boxes (such as condition
    types) *can* be somewhat longer than the English counterpart
 8. keep dialog box names short
-9. *button* labels *must* follow existing translations every time it is
+9. *button* labels *must* follow commonly used translations every time it is
    possible: for example, the *Reload* button is present in many applications
    and the most common translation should be preferred
 10. menu entries that have common counterparts (such as *About...*,
@@ -262,7 +262,7 @@ handled by the Python interpreter. Some more detailed instructions follow:
     pleasant casing style should be used for each language
 14. try to use only special characters normally available in the default
     ASCII code page for the destination language, such as diacritics: if
-    possible avoid symbols and non-printable characters.
+    possible avoid other symbols and non-printable characters.
 
 .. Note::
   There is one point where the translation might become difficult: the
@@ -511,10 +511,10 @@ following way:
   $ cd deb_dist/when-command-<version_identifier>
   $ debuild
 
-The package is in the `deb_dist` directory. After entering the source
-directory, the first two lines just synchronize the `copyright` file from
-the unpacked source tree to the `debian` "service" directory just to avoid
-some of the complaints that `lintian` shows during the build process, while
+The package is in the ``deb_dist`` directory. After entering the source
+directory, the first two lines just synchronize the ``copyright`` file from
+the unpacked source tree to the ``debian`` "service" directory just to avoid
+some of the complaints that ``lintian`` shows during the build process, while
 the last two lines are the commands that actually build the Debian package.
 
 This process also creates a source package in the same form as above, with
@@ -546,10 +546,6 @@ together with ``control_template``, made executable using
 and launched.
 
 .. _gist: https://gist.github.com/almostearthling/009fbbe27ea5ca921452
-
-
-
-
 
 
 .. [#reqs] In fact the other packages that could possibly require installation
