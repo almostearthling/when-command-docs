@@ -99,7 +99,7 @@ startup application (via the *Settings* dialog box). [#preferredinstall]_
   be invoked again, using the full path to the command if appropriate.
 
 
-Install from the source
+Install from the Source
 =======================
 
 A source archive or a *Git* clone can be used to install the package in a
@@ -136,7 +136,7 @@ testing purposes (it can supersede an existing installation, using the
 from a cloned repository or to restrict installation to a single user.
 
 
-The ``--install`` switch
+The ``--install`` Switch
 ========================
 
 **When** will try to recognize the way it has been set up the first time it's
