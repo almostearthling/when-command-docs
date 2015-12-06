@@ -291,8 +291,6 @@ As of version *0.7.0-beta.1* **When** has an automated test suite. The test
 suite does not come packaged with the applet, since it wouldn't be useful
 to install the test scripts on the user machine: instead, it's stored in its
 dedicated repository_, see the specific ``README.md`` file for more details.
-The test suite is kept as a separate entity from the project: future releases
-of the test suite could be moved to a dedicated GitHub repository.
 
 Whenever a new feature is added, that affects the *background* part of
 **When** (i.e. the loop that checks conditions and possibly runs tasks),
