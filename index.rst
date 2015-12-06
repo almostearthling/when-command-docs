@@ -13,8 +13,8 @@ Contents:
    intro.rst
    install.rst
    description.rst
-   tutorial.rst
    advanced.rst
+   tutorial.rst
    contributing.rst
    credits.rst
    history.rst

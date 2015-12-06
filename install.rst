@@ -36,8 +36,8 @@ commands can be used.
 
 The ``gir1.2-appindicator3-0.1`` package may not be needed on all systems, but
 some Linux distributions do not install it by default. ``python3-pyinotify``
-is normally considered *optional* for **When** [#pyinotify]_ to work, but it
-is necessary to enable conditions based on changes to the file system.
+is normally considered *optional* but it is mandatory to enable conditions
+based on changes to the file system. [#pyinotify]_
 
 After the requirements have been fulfilled, the methods below can be used to
 set up the applet.
@@ -71,7 +71,7 @@ distributions. **When** packages come in two flavors:
    full path, that is as ``/opt/when-command/when-command``. The package file
    name has the form: ``when-command-opt-VERSIONSPEC.deb``.
 
-To install a downloaded package, the command
+To install a downloaded package, run
 
 ::
 
@@ -161,8 +161,10 @@ Removal
 ``apt-get remove when-command-opt`` if a package distribution was used, or
 by deleting the newly created applet directory (``~/Applications/When`` in
 the above example) if the source was unpacked from an archive or cloned from
-*Git*. Also, user data and the desktop shortcut symbolic links should be
-removed as follows:
+*Git*.
+
+Also, user data and desktop shortcut symbolic links can (and should, on
+package dismissal) be removed as follows:
 
 ::
 
