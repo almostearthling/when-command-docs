@@ -180,7 +180,7 @@ while the following commands can be used to remove applet data:
   $ rm -Rf ~/.config/when-command
 
 where the last line may be skipped if **When** is presumed to be reinstalled
-at a later time.
+at a later time. [#extrafiles]_
 
 Of course it has to be shut down before, for example by killing it via
 ``when-command --kill``.
@@ -204,3 +204,7 @@ Of course it has to be shut down before, for example by killing it via
 
 .. [#autostart] Although an autostart entry is created, it remains inactive
   by default if the configuration is not modified in the applet settings.
+
+.. [#extrafiles] Not all ``rm`` operations listed here will actually have
+  effect: the instructions follow the most generic case, and some of the
+  files listed here for deletion could be missing.
