@@ -88,6 +88,7 @@ run **When** has to launch ``when-command --install`` (or
 ``/opt/when-command/when-command --install`` if the second method was chosen)
 in order to find the applet icon in *Dash* and to be able to set it up as a
 startup application (via the *Settings* dialog box). [#preferredinstall]_
+[#autostart]_
 
 .. Warning::
   The two package types are seen as different by *apt* and *dpkg*: this means
@@ -191,3 +192,6 @@ Of course it has to be shut down before, for example by killing it via
   the one usually referred to throughout the documentation: ``when-command``
   is considered to be in the path, and in the examples and instructions is
   invoked directly, omitting the full path prefix.
+
+.. [#autostart] Although an autostart entry is created, it remains inactive
+  by default if the configuration is not modified in the applet settings.  
