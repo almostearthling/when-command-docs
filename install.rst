@@ -164,25 +164,34 @@ by deleting the newly created applet directory (``~/Applications/When`` in
 the above example) if the source was unpacked from an archive or cloned from
 *Git*.
 
-Also, user data and desktop shortcut symbolic links can (and should, on
-package dismissal) be removed as follows:
+Also, desktop shortcut symbolic links can be removed as follows:
 
 ::
 
   $ rm -f ~/.local/share/applications/when-command.desktop
   $ rm -f ~/.config/autostart/when-command-startup.desktop
+
+while the following commands can be used to remove applet data:
+
+::
+
   $ rm -f ~/.local/bin/when-command
-  $ rm -Rf ~/.config/when-command
   $ rm -Rf ~/.local/share/when-command
+  $ rm -Rf ~/.config/when-command
+
+where the last line may be skipped if **When** is presumed to be reinstalled
+at a later time.
 
 Of course it has to be shut down before, for example by killing it via
 ``when-command --kill``.
 
 .. Note::
-  Removal of user data and desktop shortcuts is *not required* when switching
-  package type or changing installation style, provided that the newly
-  installed ``when-command`` is invoked with the ``--install`` switch before
-  using the applet.
+  Removal of user data is *not required* when switching package type or
+  changing installation style, provided that the newly installed
+  ``when-command`` is invoked with the ``--install`` switch before using the
+  applet. If user data is removed, all *tasks* and *conditions* and other
+  items will have to be recreated from scratch after reinstalling, unless an
+  *export file* exists.
 
 
 .. [#pyinotify] Package based installations depend on this: the installation
@@ -194,4 +203,4 @@ Of course it has to be shut down before, for example by killing it via
   invoked directly, omitting the full path prefix.
 
 .. [#autostart] Although an autostart entry is created, it remains inactive
-  by default if the configuration is not modified in the applet settings.  
+  by default if the configuration is not modified in the applet settings.
