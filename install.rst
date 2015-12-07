@@ -171,7 +171,8 @@ Also, desktop shortcut symbolic links can be removed as follows:
   $ rm -f ~/.local/share/applications/when-command.desktop
   $ rm -f ~/.config/autostart/when-command-startup.desktop
 
-while the following commands can be used to remove applet data:
+while the following commands can be used to remove applet data and an extra
+CLI link (if present):
 
 ::
 
@@ -179,7 +180,7 @@ while the following commands can be used to remove applet data:
   $ rm -Rf ~/.local/share/when-command
   $ rm -Rf ~/.config/when-command
 
-where the last line may be skipped if **When** is presumed to be reinstalled
+where the last line can be skipped if **When** is presumed to be reinstalled
 at a later time. [#extrafiles]_
 
 Of course it has to be shut down before, for example by killing it via
@@ -205,6 +206,6 @@ Of course it has to be shut down before, for example by killing it via
 .. [#autostart] Although an autostart entry is created, it remains inactive
   by default if the configuration is not modified in the applet settings.
 
-.. [#extrafiles] Not all ``rm`` operations listed here will actually have
+.. [#extrafiles] Not all ``rm`` operations shown here will actually have
   effect: the instructions follow the most generic case, and some of the
-  files listed here for deletion could be missing.
+  files listed for deletion could be missing.
