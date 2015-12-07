@@ -100,6 +100,34 @@ startup application (via the *Settings* dialog box). [#preferredinstall]_
   be invoked again, using the full path to the command if appropriate.
 
 
+Install from a PPA
+==================
+
+It is possible to install **When** on recent Ubuntu series from a PPA. This
+has the advantage of automatically resolving dependencies and to directly
+set up a fairly stable release with the recommended layout, and to let the
+user automatically update the software in the ordinary way.
+
+To add the repository, please issue
+
+::
+
+  $ sudo add-apt-repository ppa:franzg/when-command
+
+and accept to import the related key. Then refresh the packages and install
+the applet by running
+
+::
+
+  $ sudo apt-get update
+  $ sudo apt-get install when-command
+
+to actually install the software.
+
+Running ``when-command --install`` is still needed for each user to add
+**When** to the desktop when installing for the first time.
+
+
 Install from the Source
 =======================
 

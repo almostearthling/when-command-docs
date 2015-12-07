@@ -414,7 +414,7 @@ The ``python3 setup.py ... bdist_deb`` actually builds a ``.deb`` file in the
 ``.dsc`` file, ``.orig.tar.gz`` and ``.debian.tar.gz`` archives, and
 ``.changes`` files. However the ``.dsc`` and ``changes`` files are not
 signed: to upload the package to a *PPA*, for instance, they need to be
-signed using ``gpg --clearsign``.
+signed using ``debsign``. [#noclearsign]_
 
 
 Using the Packaging Utilities Directly
@@ -553,3 +553,6 @@ and launched.
 
 .. [#nonewstrings] Consider that ``poedit`` would not show new or untranslated
   strings by default.
+
+.. [#noclearsign] Just ``gpg --clearsign`` is not sufficient because file
+  checksums change in the process.
