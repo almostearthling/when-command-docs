@@ -364,7 +364,7 @@ We want this task to occur whenever the session has been idle for, say, three
 minutes. It's not a very expensive task, so we accept it to run more than
 once per session. To create the condition, select *Edit Conditions...* from
 the applet menu. In the *condition editor* choose a meaningful name for the
-item, such as `DocumentsHKeepOnIdle`, and choose *Idle Session* from the
+item, such as ``DocumentsHKeepOnIdle``, and choose *Idle Session* from the
 drop-down list. Specify `3` in the *Idle Minutes* field, then using the
 drop-down list below the task list, choose the ``DocumentsHousekeeping`` task
 and click the *Add* button on the right. We can leave the other entries
