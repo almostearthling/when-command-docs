@@ -122,7 +122,9 @@ the applet by running
   $ sudo apt-get update
   $ sudo apt-get install when-command
 
-to actually install the software.
+from the command line. The other common methods of setting up a PPA using
+the *Software & Updates* page in *System Settings* and the
+*Ubuntu Software Center* also work.
 
 Running ``when-command --install`` is still needed for each user to add
 **When** to the desktop when installing for the first time.
