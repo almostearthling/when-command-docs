@@ -251,23 +251,23 @@ Consider that all entries correspond to entries or fields in the
 *Task Definition Dialog Box* and the corresponding default values are the
 values that the dialog box shows by default.
 
-* ``command``
+* ``command``:
   The value indicates the full command line to be executed when the task
   is run, it can contain every legal character for a shell command.
   *This entry is mandatory:* omission invalidates the file.
-* ``environment variables``
+* ``environment variables``:
   A multi-value entry that includes a variable definition on each line.
   Each definition has the form ``VARNAME=value``, must be indented and
   the value *must not* contain quotes. Everything after the equal sign
   is considered part of the value, including spaces. Each line defines
   a single variable.
-* ``import environment``
+* ``import environment``:
   Decide whether or not to import environment for the command that the
   task runs. Must be either ``true`` or ``false``.
-* ``startup directory``
+* ``startup directory``:
   Set the *startup directory* for the task to be run. It should be a valid
   directory.
-* ``check for``
+* ``check for``:
   The value of this entry consists either of the word ``nothing`` or of a
   comma-separated list of three values, that is ``outcome, source, value``
   where
@@ -280,19 +280,19 @@ values that the dialog box shows by default.
 
   By default, as in the corresponding dialog box, if this entry is omitted
   the task will check for success as an exit status of ``0``.
-* ``exact match``
+* ``exact match``:
   Can be either ``true`` or false. If ``true`` in the post-execution check
   the entire *stdout* or *stderr* will be checked against the *value*,
   otherwise the value will be sought in the command output. By default it
   is *false*. It is only taken into account if ``check for`` is specified
   and set to either *stdout* or *stderr*.
-* ``regexp match``
+* ``regexp match``:
   If ``true`` the value will be treated as a *regular expression*. If also
   ``exact match`` is set, then the regular expression is matched at the
   beginning of the output. By default it is *false*. It is only taken into
   account if ``check for`` is specified and set to either *stdout* or
   *stderr*.
-* ``case sensitive``
+* ``case sensitive``:
   If ``true`` the comparison will be made in a case sensitive fashion. By
   default it is *false*. It is only taken into account if ``check for``
   is specified and set to either *stdout* or *stderr*.
@@ -305,23 +305,23 @@ not enabled in the configuration: read the appropriate section on how to
 enable *user defined events*. If user events are enabled, the following
 entries can be used:
 
-* ``bus``
+* ``bus``:
   This value can only be one of ``session`` or ``system``. It defaults to
   *session*, so it has to be specified if the actual bus is not in the
   *session bus*.
-* ``bus name``
+* ``bus name``:
   Must hold the *unique bus name* in dotted form, and is *mandatory*.
-* ``object path``
+* ``object path``:
   The path to the objects that can issue the signal to be caught: has a
   form similar to a *path* and is *mandatory*.
-* ``interface``
+* ``interface``:
   It is the name of the object interface, in dotted form. *Mandatory.*
-* ``signal``
+* ``signal``:
   The name of the signal to listen to. This too is *mandatory*.
-* ``defer``
+* ``defer``:
   If set to ``true``, the signal will be caught but the related condition
   will be fired at the next clock tick instead of immediately.
-* ``parameters``
+* ``parameters``:
   This is a multiple line entry, and each parameter check must be specified
   on a single line. Each check has the form: ``idx[:sub], compare, value``
   where
@@ -331,13 +331,13 @@ entries can be used:
     is always an integer number, while ``sub`` is an integer if the
     collection is a list, or a string if the collection is a dictionary. The
     interpunction sign is a colon if the subindex is present.
-  - ``compare`` is always one of the following strings: ``equal``, ``gt``,
+  - ``compare`` is always one of the following tokens: ``equal``, ``gt``,
     ``lt``, ``matches`` or ``contains``. It can be preceded by the word
     ``not`` to negate the comparison.
   - ``value`` is an arbitrary string (it can also contain commas), without
     quotes.
 
-* ``verify``
+* ``verify``:
   Can be either ``all`` or ``any``. If set to ``any`` (the default) the
   parameter check evaluates to *true* if any of the provided checks is
   positive, if set to ``all`` the check is *true* only if all parameter
@@ -359,7 +359,7 @@ considered invalid.
 
 The following entries are common to all types of condition:
 
-* ``based on``
+* ``based on``:
   Determines the type of condition that is being defined. It *must* be one
   of the following and is *mandatory*:
 
@@ -374,20 +374,20 @@ The following entries are common to all types of condition:
     file is considered *invalid*.
 
   Any other value will invalidate the definition file.
-* ``task names``
+* ``task names``:
   A comma separated list of tasks that are executed when the condition fires
   up. The names *must* be defined, either in the set of existing tasks for
   the running instance, or among the tasks defined in the file itself.
-* ``repeat checks``
+* ``repeat checks``:
   If set to ``false`` the condition is never re-checked once it was found
   positive. By default it is *true*.
-* ``sequential``
+* ``sequential``:
   If set to ``true`` the corresponding tasks are run in sequence, otherwise
   all tasks will start at the same time. *True* by default.
-* ``suspended``
+* ``suspended``:
   The condition will be suspended immediately after construction if this is
   *true*. *False* by default.
-* ``break on``
+* ``break on``:
   Can be one of ``success``, ``failure`` or ``nothing``. In the first case
   the task sequence will break on first success, in the second case it will
   break on the first failure. When ``nothing`` is specified or the entry is
