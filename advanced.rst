@@ -396,6 +396,156 @@ The following entries are common to all types of condition:
 
 Other entries depend on the values assigned to the ``based on`` entry.
 
+Interval
+^^^^^^^^
+
+Interval based conditions require the following entry to be defined:
+
+* ``interval minutes``:
+  An integer *mandatory* value that defines the number of minutes that
+  will occur between checks, or before the first check if the condition
+  is not set to repeat.
+
+Time
+^^^^
+
+All parameters are optional: if none is given, the condition will fire up
+every day at midnight.
+
+* ``year``:
+  Integer value for the year.
+* ``month``:
+  Integer value for month: must be between 1 and 12 included.
+* ``day``:
+  Integer value for day: must be between 1 and 31 included.
+* ``hour``:
+  Integer value for hour: must be between 0 and 23 included.
+* ``minute``:
+  Integer value for minute: must be between 0 and 59 included.
+* ``day of week``:
+  A token, one of ``monday``, ``tuesday``, ``wednesday``, ``thursday``,
+  ``friday``, ``saturday``, ``sunday``. No abbreviations allowed.
+
+Command
+^^^^^^^
+
+Command based conditions accept a command line and the specification of
+what has to be checked. The latter is not mandatory, and defaults to
+expectation of a zero exit status.
+
+* ``command``:
+  The full command line to run: this is *mandatory*.
+* ``check for``:
+  Somewhat similar to the same entry found in Tasks_, this entry must be
+  specified as a comma-separated pair of the form ``source, value``, where
+  ``source`` is one of ``status``, ``stdout`` or ``stderr``, and ``value``
+  is an integer in the ``status`` case, or a string to look for in the
+  other cases. Defaults to ``status, 0``.
+* ``match regexp``:
+  If ``true`` the test value is treated as a *regular expression*. Defaults
+  to ``false``.
+* ``exact match``:
+  If ``true`` the test value is checked against the full output (if
+  ``match regexp`` is ``true`` the regular expression is matched at the
+  beginning of the output). Defaults to ``false``.
+* ``case sensitive``:
+  If ``true`` the comparison will be case sensitive. Defaults to ``false``.
+
+Idle Session
+^^^^^^^^^^^^
+
+The only parameter is mandatory:
+
+* ``idle minutes``:
+  An integer value indicating the number of minutes that the machine must
+  wait in idle state before the condition fires.
+
+Event
+^^^^^
+
+This condition type requires a sigle entry to be defined.
+
+* ``event type``:
+  This *must* be one of the following words:
+
+  - ``startup``
+  - ``shutdown``
+  - ``suspend``
+  - ``resume``
+  - ``connect_storage``
+  - ``disconnect_storage``
+  - ``join_network``
+  - ``leave_network``
+  - ``screensaver``
+  - ``exit_screensaver``
+  - ``lock``
+  - ``unlock``
+  - ``charging``
+  - ``discharging``
+  - ``battery_low``
+  - ``command_line``
+
+Each of them is a single word with underscores for spaces. Abbreviations
+are not accepted. Any other value invalidates the condition and the file.
+
+File and Path Modifications
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Also in this case a single entry is required, indicating the file or path
+that **When** must observe.
+
+* ``watched path``:
+  A path to be watched. Can be either the path to a file or to a directory.
+  No trailing slash is required.
+
+User Event
+^^^^^^^^^^
+
+In this case a single entry is required and must contain the *name* of an
+user defined event. The event can either be defined in the same file or
+already known to the applet, but it *must* be defined otherwise the file
+fails to load. Names, as usual, are case sensitive.
+
+* ``event name``:
+  The name of the user defined event.
+
+.. Note::
+  Items defined in an *items definition file*, just as items built using
+  the applet GUI, will overwrite items of the same type and name.
+
+
+Exporting and Importing Items
+=============================
+
+**When** saves *tasks*, *conditions* and *signal handlers* in binary form
+for use across sessions. It might be useful to have a more portable format
+at hand to store these items and be sure, for instance, that they will be
+loaded correctly when upgrading **When** to a newer release. While every
+effort will be made to avoid incompatibilities, there might be cases where
+compatibility cannot be kept.
+
+To export all items to a file, the following command can be used:
+
+::
+
+  $ when-command --export [filename.dump]
+
+where the file argument is optional. If given, all items will be saved
+to the specified file, otherwise in a known location in ``.config``. The
+saved file is not intended to be edited by the user -- it uses a JSON
+representation of the internal objects.
+
+To import items back to the applet, it has to be shut down first and the
+following command must be run:
+
+::
+
+  $ when-command --import [filename.dump]
+
+where the ``filename.dump`` parameter must correspond to a file previously
+generated using the ``--export`` switch. If no argument is given, **When**
+expects that items have been exported giving no file specification to the
+``--export`` switch. After import **When** can be restarted.
 
 
 .. [#envonimport] This behavior is intentional, since if the user chose not
