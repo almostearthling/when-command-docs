@@ -79,7 +79,7 @@ The Examples
 
 The provided examples illustrate simple tasks that could serve as a starting
 point to build more complex actions. Me too, I started developing **When**
-with very simpple goals in mind. Then **When** ended up including more
+with very simple goals in mind. Then **When** ended up including more
 interesting features on which I also built some tools -- one_ of them is even
 used to help develop **When** itself. The provided examples are about
 
