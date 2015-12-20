@@ -464,6 +464,18 @@ The available options are:
                           first
 --kill                    close a running instance abruptly, no shutdown tasks
                           are run
+--item-add file           add items from a specially formatted file (see the
+                          *advanced* section for details); if the specified
+                          file is ``-`` the text is read from the standard
+                          input
+--item-del [type:]name    delete the named item from the ones that the applet
+                          manages; ``type`` is one of ``tasks``, ``conditions``
+                          and ``sighandlers`` (or an abbreviation thereof)
+                          and can be omitted if the name is unique
+--item-list [type]        print the list of currently managed items to the
+                          console, each prefixed with its type; if type is
+                          specified (same as above, abbreviations supported)
+                          only such items are listed
 --export file             save tasks, conditions and other items to a portable
                           format; the *file* argument is optional, and if not
                           specified the applet tries to save these items to a
