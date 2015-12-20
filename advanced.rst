@@ -319,8 +319,8 @@ entries can be used:
 * ``signal``:
   The name of the signal to listen to. This too is *mandatory*.
 * ``defer``:
-  If set to ``true``, the signal will be caught but the related condition
-  will be fired at the next clock tick instead of immediately.
+  If set to ``true`` (the default), the signal will be caught but the related
+  condition will be fired at the next clock tick instead of immediately.
 * ``parameters``:
   This is a multiple line entry, and each parameter check must be specified
   on a single line. Each check has the form: ``idx[:sub], compare, value``
