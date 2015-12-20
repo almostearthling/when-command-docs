@@ -263,7 +263,7 @@ values that the dialog box shows by default.
   a single variable.
 * ``import environment``:
   Decide whether or not to import environment for the command that the
-  task runs. Must be either ``true`` or ``false``.
+  task runs. Must be either ``true`` or ``false``. Defaults to *true*.
 * ``startup directory``:
   Set the *startup directory* for the task to be run. It should be a valid
   directory.
