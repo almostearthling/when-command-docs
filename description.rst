@@ -384,6 +384,32 @@ the command line using the ``--show-settings`` (or ``-s``) switch when an
 instance is running.
 
 
+Minimalistic Mode
+-----------------
+
+There is the possibility to start **When** in *Minimalistic Mode* checking
+the appropriate option in the *General* tab of the *Setting* dialog box.
+This option is useful mainly when all necessary items are already defined
+(or the user chooses to define them through *Item Definition Files*, see
+the *Advanced* guide) and there is no more need to clutter the GUI with
+"useless" menu entries. This mode has also the side effect of saving some
+memory, although not a very big amount, by avoiding to load dialog boxes
+that will not be shown.
+
+The remaining menu entries are:
+
+* Settings...
+* Task History...
+* Pause
+* About...
+* Quit
+
+which can be useful to revert behavior to normal and to monitor tasks.
+
+To effectively enter or leave *Minimalistic Mode* the applet must be
+restarted after the option was changed.
+
+
 The History Window
 ==================
 
