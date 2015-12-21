@@ -5,87 +5,14 @@ Introduction
 **When** is a configurable user task scheduler for modern Gnome environments.
 It interacts with the user through a GUI, where the user can define tasks and
 conditions, as well as relationships of causality that bind conditions to
-tasks. When a condition is bound to a task, it is said to trigger a task.
+tasks.
 
-Overview
-========
+This manual page briefly describes the *command line interface* of **When**,
+the configuration file and *item definition files*. Please refer to
 
-**When** deals mainly with two types of entities, *Tasks* and *Conditions*.
-These entity types are used to define *items* using the applet configuration
-dialog boxes. Unlike similar applications, since *items* do not only represent
-checks or commands, they are referenced by *name* throughout the user interface
-of the applet. Item names must:
+http://when-documentation.readthedocs.org/
 
-* begin with either a letter or a number
-* contain only letters, numbers, underscores or dashes (no spaces)
-
-and are case sensitive. A *Task* consists of a command, which will run in
-the default shell, along with an environment and some hints on how to consider
-it successful or not. *Tasks* correspond to a single command line each: this
-means that they can consist of several shell commands each, as long as they can
-fit on a single shell line -- for instance using shell separators (such as
-semicolons, ``;``) or other conjunctions or disjunctions. A *Condition*
-consists of an inherent *test* or associated *event*, a set of *Tasks* and
-instructions on how tasks should run in case the test succeeds or the event
-occurs. There is no concept of *failure* in conditions: a condition can either
-occur or not.
-
-The relationship between *Tasks* and *Conditions* consists in the possibility
-for a condition to trigger a task: if the tests or events that determine the
-condition are positive, then the tasks associated with that condition are
-*very likely* to run -- execution of a task may be prevented either by the
-**When** applet itself, if a previously run task in the same condition
-occurrence [#condoccur]_ has failed (or succeeded) and the condition is set
-to break in such an event, or by the underlying system if there is something
-wrong with the task itself. The latter case is however normally interpreted as
-a task *failure*.
-
-More than one task can be associated to a condition: if tasks in a set that is
-associated to a condition can be considered as *independent*, then the user
-can choose to run the tasks simultaneously in multiple threads [#mthread]_
-otherwise such tasks can run in sequence, and the sequence can be interrupted,
-at user's choice, either on first task failure or on first task success.
-
-This shows how a single *condition* can be associated to multiple *tasks*.
-However a *task* can be "reused" in more than one condition: this is
-particularly useful when a certain action is required to be triggered under
-different circumstances -- say, at certain times *and* when an event occurs --
-in which case both involved conditions may trigger the same task, possibly
-within different task sets.
-
-.. Note::
-  Most of the `tokens` that decide whether or not a condition is verified are
-  *enqueued* to be checked at intervals, which in the case of relatively
-  "inexpensive" checks is at every clock tick, while in other cases is at
-  longer intervals defined in the ``skip seconds`` configuration parameter.
-  For example, conditions that depend on outcome of *external commands* are
-  checked at longer intervals. Also, most [#deferredevents]_ system and
-  session events cause the associated condition to be verified at the next
-  clock tick instead of immediately. If such events occur *again* when the
-  task set for the associated condition is already enqueued to be run, it is
-  executed only once -- further attempts to enqueue it are simply skipped.
-
-The **When** applet can be thought of as a main loop that incorporates a
-*clock* and an *event listener*. Whenever the clock ticks, conditions are
-evaluated, and when an event is caught a *token* is issued for the associated
-condition to evaluate to `true`, so that the task set that it surrounds can
-be run. Conditions that do not receive a token or whose test evaluates to
-`false` are skipped for further evaluation.
-
-*Conditions* can also be marked as `recurring`: if a condition has *not* been
-instructed to *repeat checks*, the corresponding tests (and received tokens)
-are skipped after the first time the associated task set has been triggered,
-until the **When** applet is restarted -- either in a new session or by direct
-intervention. Enabling the *repeat checks* feature, on the other side, allows
-the condition to be `recurring`, or even `periodic` in the case of interval
-based conditions.
-
-There is another type of entity that can be defined, for which the naming
-convention is the same as for *Tasks* and *Conditions*, that is
-*Signal Handlers*: these can be used to define special *events* to be caught by
-*Conditions* when certain *DBus Signals* are emitted. This advanced feature is
-intended for users with a background on *DBus* specification and is not for
-general use. [#busevent]_
+for more detailed information.
 
 
 Command Line Interface
@@ -140,6 +67,20 @@ The available options are:
                           first
 --kill                    close a running instance abruptly, no shutdown tasks
                           are run
+--item-add file           add items from a specially formatted file (see the
+                          *advanced* section for details); if the specified
+                          file is ``-`` the text is read from the standard
+                          input
+--item-del itemspec       delete the item specified by *itemspec*. *itemspec*
+                          has the form ``[type:]item`` where ``type:`` is
+                          optional and is is one of ``tasks``, ``conditions``
+                          and ``sighandlers`` (or an abbreviation thereof)
+                          while ``item`` is the name of an item; ``type`` can
+                          only be omitted if the name is unique
+--item-list type          print the list of currently managed items to the
+                          console, each prefixed with its type; ``type`` is
+                          optional (see above for possible values) and if
+                          specified only items of that type are listed
 --export file             save tasks, conditions and other items to a portable
                           format; the *file* argument is optional, and if not
                           specified the applet tries to save these items to a
@@ -173,190 +114,6 @@ invokes the applet when already running, the new instance will bail out with
 an error.
 
 
-The Applet
-==========
-
-The applet will show up in the indicator tray at startup, which would normally
-occur at login if the user chose to add **When** to the startup applications.
-It will read its configuration and start the scheduler in an unattended
-fashion. Whenever one of the user defined conditions is met, the associated
-tasks are executed. A small alarm clock icon will display in the indicator
-tray, to show that the applet is running: by default it turns to an attention
-sign when the applet requires attention. Also, the icon changes its shape
-when the applet is *paused* (the clock is crossed by a slash) and when a
-configuration dialog is open (the alarm clock shows a plus sign inside the
-circle).
-
-The icon grants access to the main menu, which allows the following basic
-operations:
-
-* open the Task_ editing dialog box
-* open the Condition_ editing dialog box
-* open the Settings_ dialog box
-* show the `Task History`_ window
-* *pause* and *resume* the scheduler
-* show the *About* box
-* quit the applet.
-
-Where the *Task* and *Condition* editing boxes, the *Settings* dialog and the
-*Task History* window might need some more detailed explanation, the other
-operations should be pretty straightforward: the *Pause* entry pauses the
-scheduler (preventing any condition to occur), *About...* shows information
-about the applet and *Quit* shuts the applet down, removing the icon from the
-top panel.
-
-Some useful features can also be accessed from the `Command Line Interface`_,
-including advanced tools: by default, when the applet is invoked with no
-arguments, it just starts an instance showing the icon in the top panel (if
-configured to do so), while the *CLI* allows operations on either a running
-instance or the applet configuration.
-
-.. _Task: Tasks_
-.. _Condition: Conditions_
-.. _Settings: Configuration_
-.. _`Task History`: The History Window_
-
-The following paragraphs illustrate the details of the applet user interface.
-
-
-Tasks
-=====
-
-Tasks are basically commands associated with an environment and checks to
-determine whether the execution was successful or not. The interface lets the
-user configure some basic parameters (such as the startup directory and the
-*environment*) as well as what to test after execution (*exit code*, *stdout*
-or *stderr*). The user can choose to look for the specified text within the
-output and error streams (when *Exact Match* is unchecked, otherwise the entire
-output is matched against the given value) and to perform a case sensitive
-test, or to match a regular expression. In case a regular expression is chosen,
-the applet will try to search *stdout* or *stderr* for the given pattern. In
-case of regular expressions, when *Exact Match* is chosen, a match test is
-performed at the beginning of the output text. Regular expression tests can be
-case insensitive as well.
-
-The environment in which the subprocess is run can either import the current
-one (at **When** startup time), use its own variables or both.
-
-The selected task (if any) can be deleted clicking the *Delete* button in the
-dialog box. However the application will refuse to delete a task that is used
-in a condition: remove the task reference from the condition first. Every task
-must have an *unique name*, if a task is named as an existing task it will
-replace the existing one. The name *must* begin with an alphanumeric character
-(letter or digit) followed by alphanumerics, dashes and underscores.
-
-**How to use the "Check for" option:** The applet can either ignore whatever
-the underlying process returns to the caller by specifying *Nothing* in the
-*Check for* group, or check
-
-* exit code
-* process output (*stdout*)
-* process written errors (*stderr*)
-
-to determine whether the process succeeded or failed. When the user chooses to
-check for *Success*, the operation is considered successful *if and only if*
-the process result (exit code, output, or error) corresponds to the user
-provided value. Same yields for *Failure*: if *Failure* is chosen, only the
-provided result will indicate a failure. For example, in the most common case
-the user will choose to expect *Success* to correspond to an *Exit Code* of
-``0`` (in fact the default choice), all other exit codes will indicate a
-failure. And if the user chooses to expect *Failure* to be reported as the word
-``Error`` in the error messages, whatever other error messages will be ignored
-and the operation will turn out successful. Please note that since all commands
-are executed in the default shell, expect an exit code different from ``0``
-when the command is not found. With the ``/bin/sh`` shell used on Linux, the
-*not found* code is ``127``.
-
-
-Conditions
-==========
-
-There are several types of condition available:
-
-1. **Interval based:** After a certain time interval the associated tasks are
-   executed, if the condition is set to repeat checks, the tasks will be
-   executed again regularly after the same time interval.
-2. **Time based:** The tasks are executed when the time specification is
-   matched. Time definitions can be partial, and in that case only the defined
-   parts will be taken into account for checking: for instance, if the user
-   only specifies minutes, the condition is verified at the specified minute
-   for every hour if the *Repeat Checks* option is set.
-3. **Command based:** When the execution of a specified command gives the
-   expected result (in terms of **exit code**, **stdout** or **stderr**), the
-   tasks are executed. The way the test command is specified is similar
-   (although simpler) to the specification of a command in the *Task*
-   definition dialog box. The command is run in the same environment (and
-   startup directory) as **When** at the moment it was started.
-4. **Idle time based:** When the session has been idle for the specified amount
-   of time the tasks are executed. This actually is implemented as a shortcut
-   to the command based condition built using the ``xprintidle`` command,
-   which must be installed for the applet to work properly.
-5. **Event based:** The tasks are executed when a certain session or system
-   event occurs. The following events are supported:
-
-   - *Startup* and *Shutdown*. These are verified when the applet (or session,
-     if the applet is launched at startup) starts or quits.
-   - *Suspend* and *Resume*, respectively match system suspension/hibernation
-     and resume from a suspended state.
-   - *Session Lock* and *Unlock*, that occur when the screen is locked or
-     unlocked.
-   - *Screensaver*, both entering the screen saver state and exiting from it.
-   - *Storage Device Connect* and *Disconnect*, which take place when the user
-     attaches or respectively detaches a removable storage device.
-   - *Join* or *Leave a Network*, these are verified whenever a network is
-     joined or lost respectively.
-   - *Battery Charging*, *Discharging* or *Low*, respectively occurring when
-     the power cord is plugged, unplugged or the battery is dangerously low:
-     note that a *change* in power status has to arise for the condition to
-     occur, and the *Low* condition is originated from the system.
-   - *Command Line Trigger* is a special event type, that is triggered invoking
-     the command line. The associated condition can be scheduled to be run at
-     the next clock tick or immediately using the appropriate switch.
-
-6. **Based on filesystem changes:** The tasks are run when a certain file
-   changes, or when the contents of a directory or its subdirectories change,
-   depending on what the user chose to watch -- either a file or a directory.
-   A dialog box can be used to select what has to be watched. [#inotify]_
-7. **Based on an user defined event:** The user can monitor system events by
-   listening to *DBus* signals emitted on either the system bus or the session
-   bus. [#busevent]_
-
-Also, the condition configuration interface allows to decide:
-
-* whether or not to repeat checks even after a task set has been executed --
-  that is, make an action `recurring`;
-* to run the tasks in a task set concurrently or sequentially: when tasks are
-  set to run sequentially, the user can choose to ignore the outcome of tasks
-  or to break the sequence on the first failure or success by selecting the
-  appropriate entry in the box on the right -- tasks that don't check for
-  success or failure will *never* stop a sequence;
-* to *suspend* the condition: it will not be tested, but it's kept in the
-  system and remains inactive until the *Suspend* box is unchecked.
-
-The selected condition (if any) can be deleted clicking the *Delete* button in
-the dialog box. Every condition must have an *unique name*, if a condition is
-named as an existing one it will replace it. The name *must* begin with an
-alphanumeric character (letter or digit) followed by alphanumerics, dashes and
-underscores.
-
-.. Note::
-  - **Shutdown Conditions.** Because of the way applications are notified that
-    the session is ending (first a ``TERM`` signal is sent, then a ``KILL`` if
-    the first was unsuccessful), the *Shutdown* event is not suitable for long
-    running tasks, such as file synchronizations, disk cleanup and similar
-    actions. The system usually concedes a "grace time" of about one second
-    before shutting everything down. Longer running tasks will be run if the
-    users quits the applet through the menu, though. Same yields for *Suspend*:
-    by specification, no more than one second is available for tasks to
-    complete.
-  - **Disabled Events.** Some events may not be supported on every platform,
-    even on different Ubuntu implementations. *Screen Lock/Unlock* for instance
-    does not follow very strict specifications, and could be disabled on some
-    desktops. Thus one or more events might appear as *[disabled]* in the list:
-    the user still can choose to create a condition based on a disabled event,
-    but the corresponding tasks will never be run.
-
-
 Configuration
 =============
 
@@ -371,6 +128,8 @@ The options are:
   * *Show Icon*: whether or not to show the indicator icon and menu
   * *Autostart*: set up the applet to run automatically at login
   * *Notifications*: whether or not to show notifications upon task failure
+  * *Minimalistic Mode*: disable menu entries for item definition dialog
+    boxes and in part reduce memory footprint
   * *Icon Theme*: *Guess* to let the application decide, otherwise one of
     *Dark* (light icons for dark themes), *Light* (dark icons for light
     themes), and *Color* for colored icons that should be visible on all
@@ -445,6 +204,7 @@ should be suitable for most setups:
   user events = false
   file notifications = false
   environment vars = true
+  minimalistic mode = false
 
   [Concurrency]
   max threads = 5
@@ -455,68 +215,351 @@ should be suitable for most setups:
   log backups = 4
 
 Manual configuration can be particularly useful to bring back the program
-icon once the user decided to hide it [#confhidden]_ losing access to the menu,
+icon once the user decided to hide it losing access to the menu,
 by setting the ``show icon`` entry to ``true``. Another way to force access to
 the *Settings* dialog box when the icon is hidden is to invoke the applet from
 the command line using the ``--show-settings`` (or ``-s``) switch when an
 instance is running.
 
 
-The History Window
-==================
+Item Definition File
+====================
 
-Since logs aren't always user friendly, **When** provides an easier
-interface to verify task results. Tasks failures are also notified
-graphically via the attention-sign icon and badge notifications, however more
-precise information can be found in the *History* box. This shows a list of the
-most recent tasks that have been launched by the running instance (the
-list length can be configured), which reports:
+With version *9.4.0-beta.1* a way has been introduced to define *items*
+(*tasks*, *conditions* and especially *signal handlers*) using text files
+whose syntax is similar (although it differs in some ways) to the one used
+in common configuration files.
 
-* The start time of the task and its duration in seconds
-* The task *unique name*
-* The *unique name* of the condition that triggered the task
-* The process *exit code* (as captured by the shell)
-* The result (green *tick mark* for success, red *cross mark* for failure)
-* A short hint on the failure *reason* (only in case of failure)
+Item names are case sensitive and follow the same rules
+as the related *Name* entries in dialog boxes: only names that begin with an
+alphanumeric character and continue with *alphanumerics*, *underscores* and
+*dashes* (that is, no spaces) are accepted. Entries must be followed by
+colons and in case of entries that support lists the lists must be indented
+and span multiple lines. Complex values are rendered using commas to separate
+sub-values. The value for each entry is considered to be the string beginning
+with the first non-blank character after the colon.
 
-and when the user clicks a line in the table, the tabbed box below will
-possibly show the output (*stdout*) and errors (*stderr*) reported by the
-underlying process. The contents of the list can also be exported to a text
-file, by invoking the applet with the ``--export-history`` switch from a
-console window when an instance is running. The file contains exactly the same
-values as the history list, with the addition of a row identifier at the
-beginning of the row. Start time and duration are separate values. The first
-row of the file consists of column mnemonic titles and the value separator is
-a semicolon: the file can be safely imported in spreadsheets, but column
-conversions could be needed depending on your locale settings.
+.. Warning::
+  Even a single error, be it syntactical or due to other possibly more
+  complex discrepancies, will cause the entire file to be rejected. The
+  loading applet will complain with an error status and, if invoked using
+  the ``--verbose`` switch, a very brief error message: the actual cause
+  of rejection can normally be found in the log files.
+
+For each item, the item name must be enclosed in square brackets, followed
+by the entries that define it. An entry that is common to all items is
+``type``: the type must be one of ``task``, ``condition`` or
+``signal_handler``. Every other value will be discarded and invalidate
+the file. The following sections describe the remaining entries that can
+(or have to) be used in item definitions, for each item type. Entry names
+must be written in their entirety: abbreviations are not accepted.
+
+Tasks
+-----
+
+Tasks are defined by the following entries. Some are mandatory and others
+are optional: for the optional ones, if omitted, default values are used.
+Consider that all entries correspond to entries or fields in the
+*Task Definition Dialog Box* and the corresponding default values are the
+values that the dialog box shows by default.
+
+* ``command``:
+  The value indicates the full command line to be executed when the task
+  is run, it can contain every legal character for a shell command.
+  *This entry is mandatory:* omission invalidates the file.
+* ``environment variables``:
+  A multi-value entry that includes a variable definition on each line.
+  Each definition has the form ``VARNAME=value``, must be indented and
+  the value *must not* contain quotes. Everything after the equal sign
+  is considered part of the value, including spaces. Each line defines
+  a single variable.
+* ``import environment``:
+  Decide whether or not to import environment for the command that the
+  task runs. Must be either ``true`` or ``false``.
+* ``startup directory``:
+  Set the *startup directory* for the task to be run. It should be a valid
+  directory.
+* ``check for``:
+  The value of this entry consists either of the word ``nothing`` or of a
+  comma-separated list of three values, that is ``outcome, source, value``
+  where
+
+  - ``outcome`` is either ``success`` or ``failure``
+  - ``source`` is one of ``status``, ``stdout`` or ``stderr``
+  - ``value`` is a free form string (it can also contain commas), which
+    should be compatible with the value chosen for ``source`` -- this
+    means that in case ``status`` is chosen it should be a number.
+
+  By default, as in the corresponding dialog box, if this entry is omitted
+  the task will check for success as an exit status of ``0``.
+* ``exact match``:
+  Can be either ``true`` or false. If ``true`` in the post-execution check
+  the entire *stdout* or *stderr* will be checked against the *value*,
+  otherwise the value will be sought in the command output. By default it
+  is *false*. It is only taken into account if ``check for`` is specified
+  and set to either *stdout* or *stderr*.
+* ``regexp match``:
+  If ``true`` the value will be treated as a *regular expression*. If also
+  ``exact match`` is set, then the regular expression is matched at the
+  beginning of the output. By default it is *false*. It is only taken into
+  account if ``check for`` is specified and set to either *stdout* or
+  *stderr*.
+* ``case sensitive``:
+  If ``true`` the comparison will be made in a case sensitive fashion. By
+  default it is *false*. It is only taken into account if ``check for``
+  is specified and set to either *stdout* or *stderr*.
+
+Signal Handlers
+---------------
+
+Signal handlers are an advanced feature, and cannot be defined if they are
+not enabled in the configuration: read the appropriate section on how to
+enable *user defined events*. If user events are enabled, the following
+entries can be used:
+
+* ``bus``:
+  This value can only be one of ``session`` or ``system``. It defaults to
+  *session*, so it has to be specified if the actual bus is not in the
+  *session bus*.
+* ``bus name``:
+  Must hold the *unique bus name* in dotted form, and is *mandatory*.
+* ``object path``:
+  The path to the objects that can issue the signal to be caught: has a
+  form similar to a *path* and is *mandatory*.
+* ``interface``:
+  It is the name of the object interface, in dotted form. *Mandatory.*
+* ``signal``:
+  The name of the signal to listen to. This too is *mandatory*.
+* ``defer``:
+  If set to ``true``, the signal will be caught but the related condition
+  will be fired at the next clock tick instead of immediately.
+* ``parameters``:
+  This is a multiple line entry, and each parameter check must be specified
+  on a single line. Each check has the form: ``idx[:sub], compare, value``
+  where
+
+  - ``idx[:sub]`` is the parameter index per *DBus* specification, possibly
+    followed by a subindex in case the parameter is a collection. ``idx``
+    is always an integer number, while ``sub`` is an integer if the
+    collection is a list, or a string if the collection is a dictionary. The
+    interpunction sign is a colon if the subindex is present.
+  - ``compare`` is always one of the following tokens: ``equal``, ``gt``,
+    ``lt``, ``matches`` or ``contains``. It can be preceded by the word
+    ``not`` to negate the comparison.
+  - ``value`` is an arbitrary string (it can also contain commas), without
+    quotes.
+
+* ``verify``:
+  Can be either ``all`` or ``any``. If set to ``any`` (the default) the
+  parameter check evaluates to *true* if any of the provided checks is
+  positive, if set to ``all`` the check is *true* only if all parameter
+  checks are verified. It is only taken into account if ``parameters``
+  are verified.
+
+If user events are not enabled and a signal handler is defined, the item
+definition file will be invalidated.
+
+Conditions
+----------
+
+*Conditions* are the most complex type of items that can be defined, because
+of the many types that are supported. Valid entries depend on the type of
+condition that the file defines. Moreover, *conditions* depend on other items
+(*tasks* and possibly *signal handlers*) and if such dependencies are not
+satisfied the related condition -- and with it the entire file -- will be
+considered invalid.
+
+The following entries are common to all types of condition:
+
+* ``based on``:
+  Determines the type of condition that is being defined. It *must* be one
+  of the following and is *mandatory*:
+
+  - ``interval`` for conditions based on time intervals
+  - ``time`` for conditions that depend on a time specification
+  - ``command`` if the condition depends on outcome of a command
+  - ``idle_session`` for condition that arise when the session is idle
+  - ``event`` for conditions based on *stock* events
+  - ``file_change`` when file or directory changes trigger the condition
+  - ``user_event`` for conditions arising on user defined events: these
+    can only be used if user events are enable, otherwise the definition
+    file is considered *invalid*.
+
+  Any other value will invalidate the definition file.
+* ``task names``:
+  A comma separated list of tasks that are executed when the condition fires
+  up. The names *must* be defined, either in the set of existing tasks for
+  the running instance, or among the tasks defined in the file itself.
+* ``repeat checks``:
+  If set to ``false`` the condition is never re-checked once it was found
+  positive. By default it is *true*.
+* ``sequential``:
+  If set to ``true`` the corresponding tasks are run in sequence, otherwise
+  all tasks will start at the same time. *True* by default.
+* ``suspended``:
+  The condition will be suspended immediately after construction if this is
+  *true*. *False* by default.
+* ``break on``:
+  Can be one of ``success``, ``failure`` or ``nothing``. In the first case
+  the task sequence will break on first success, in the second case it will
+  break on the first failure. When ``nothing`` is specified or the entry is
+  omitted, then the task sequence will be executed regardless of task
+  outcomes.
+
+Other entries depend on the values assigned to the ``based on`` entry.
+
+Interval
+^^^^^^^^
+
+Interval based conditions require the following entry to be defined:
+
+* ``interval minutes``:
+  An integer *mandatory* value that defines the number of minutes that
+  will occur between checks, or before the first check if the condition
+  is not set to repeat.
+
+Time
+^^^^
+
+All parameters are optional: if none is given, the condition will fire up
+every day at midnight.
+
+* ``year``:
+  Integer value for the year.
+* ``month``:
+  Integer value for month: must be between 1 and 12 included.
+* ``day``:
+  Integer value for day: must be between 1 and 31 included.
+* ``hour``:
+  Integer value for hour: must be between 0 and 23 included.
+* ``minute``:
+  Integer value for minute: must be between 0 and 59 included.
+* ``day of week``:
+  A token, one of ``monday``, ``tuesday``, ``wednesday``, ``thursday``,
+  ``friday``, ``saturday``, ``sunday``. No abbreviations allowed.
+
+Command
+^^^^^^^
+
+Command based conditions accept a command line and the specification of
+what has to be checked. The latter is not mandatory, and defaults to
+expectation of a zero exit status.
+
+* ``command``:
+  The full command line to run: this is *mandatory*.
+* ``check for``:
+  Somewhat similar to the same entry found in Tasks_, this entry must be
+  specified as a comma-separated pair of the form ``source, value``, where
+  ``source`` is one of ``status``, ``stdout`` or ``stderr``, and ``value``
+  is an integer in the ``status`` case, or a string to look for in the
+  other cases. Defaults to ``status, 0``.
+* ``match regexp``:
+  If ``true`` the test value is treated as a *regular expression*. Defaults
+  to ``false``.
+* ``exact match``:
+  If ``true`` the test value is checked against the full output (if
+  ``match regexp`` is ``true`` the regular expression is matched at the
+  beginning of the output). Defaults to ``false``.
+* ``case sensitive``:
+  If ``true`` the comparison will be case sensitive. Defaults to ``false``.
+
+Idle Session
+^^^^^^^^^^^^
+
+The only parameter is mandatory:
+
+* ``idle minutes``:
+  An integer value indicating the number of minutes that the machine must
+  wait in idle state before the condition fires.
+
+Event
+^^^^^
+
+This condition type requires a sigle entry to be defined.
+
+* ``event type``:
+  This *must* be one of the following words:
+
+  - ``startup``
+  - ``shutdown``
+  - ``suspend``
+  - ``resume``
+  - ``connect_storage``
+  - ``disconnect_storage``
+  - ``join_network``
+  - ``leave_network``
+  - ``screensaver``
+  - ``exit_screensaver``
+  - ``lock``
+  - ``unlock``
+  - ``charging``
+  - ``discharging``
+  - ``battery_low``
+  - ``command_line``
+
+Each of them is a single word with underscores for spaces. Abbreviations
+are not accepted. Any other value invalidates the condition and the file.
+
+File and Path Modifications
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Also in this case a single entry is required, indicating the file or path
+that **When** must observe.
+
+* ``watched path``:
+  A path to be watched. Can be either the path to a file or to a directory.
+  No trailing slash is required.
+
+User Event
+^^^^^^^^^^
+
+In this case a single entry is required and must contain the *name* of an
+user defined event. The event can either be defined in the same file or
+already known to the applet, but it *must* be defined otherwise the file
+fails to load. Names, as usual, are case sensitive.
+
+* ``event name``:
+  The name of the user defined event.
+
+.. Note::
+  Items defined in an *items definition file*, just as items built using
+  the applet GUI, will overwrite items of the same type and name.
 
 
-.. [#condoccur] Here a *condition occurrence* refers to an instant in time
-  when the condition prerequisites are verified and, in case of success, the
-  associated task set is scheduled to run, either immediately or shortly after.
+Exporting and Importing Items
+=============================
 
-.. [#mthread] There is a limit nevertheless in the number of tasks that can be
-  simultaneously executed, but this limit can be increased in the applet
-  settings_.
+**When** saves *tasks*, *conditions* and *signal handlers* in binary form
+for use across sessions. It might be useful to have a more portable format
+at hand to store these items and be sure, for instance, that they will be
+loaded correctly when upgrading **When** to a newer release. While every
+effort will be made to avoid incompatibilities, there might be cases where
+compatibility cannot be kept.
 
-.. [#deferredevents] Most events are *deferred*, although there are some whose
-  associated conditions are immediately evaluated: *startup*, *shutdown*, and
-  *suspend* events will cause the respective conditions to immediately trigger
-  their task sets. This choice was necessary because it is virtually impossible
-  to defer events that should occur when the system is shutting down or being
-  suspended, and because the user might expect that tasks that should occur
-  at session startup should be run as soon as possible. The only other type
-  of condition that are validated immediatly on event occurrences are the
-  *command-line* enabled ones that are forced to do so via the ``-r`` (or
-  ``--run-condition``) switch.
+To export all items to a file, the following command can be used:
+
+::
+
+  $ when-command --export [filename.dump]
+
+where the file argument is optional. If given, all items will be saved
+to the specified file, otherwise in a known location in ``.config``. The
+saved file is not intended to be edited by the user -- it uses a JSON
+representation of the internal objects.
+
+To import items back to the applet, it has to be shut down first and the
+following command must be run:
+
+::
+
+  $ when-command --import [filename.dump]
+
+where the ``filename.dump`` parameter must correspond to a file previously
+generated using the ``--export`` switch. If no argument is given, **When**
+expects that items have been exported giving no file specification to the
+``--export`` switch. After import **When** can be restarted.
+
 
 .. [#busevent] This is an advanced feature and is not available by default.
   It has to be enabled in the program settings to be accessible. Refer to the
   appropriate chapter for more information.
-
-.. [#inotify] This is an optional feature, and could lack on some systems:
-  to enable it the ``pyinotify`` library must be installed, please refer to
-  the instructions below.
-
-.. [#confhidden] I was doubtful about providing the option, then just decided
-  to implement it and provide a safety net anyway.

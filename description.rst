@@ -290,6 +290,8 @@ The options are:
   * *Show Icon*: whether or not to show the indicator icon and menu
   * *Autostart*: set up the applet to run automatically at login
   * *Notifications*: whether or not to show notifications upon task failure
+  * *Minimalistic Mode*: disable menu entries for item definition dialog
+    boxes and in part reduce memory footprint
   * *Icon Theme*: *Guess* to let the application decide, otherwise one of
     *Dark* (light icons for dark themes), *Light* (dark icons for light
     themes), and *Color* for colored icons that should be visible on all
@@ -364,6 +366,7 @@ should be suitable for most setups:
   user events = false
   file notifications = false
   environment vars = true
+  minimalistic mode = false
 
   [Concurrency]
   max threads = 5
@@ -379,6 +382,32 @@ by setting the ``show icon`` entry to ``true``. Another way to force access to
 the *Settings* dialog box when the icon is hidden is to invoke the applet from
 the command line using the ``--show-settings`` (or ``-s``) switch when an
 instance is running.
+
+
+Minimalistic Mode
+-----------------
+
+There is the possibility to start **When** in *Minimalistic Mode* checking
+the appropriate option in the *General* tab of the *Setting* dialog box.
+This option is useful mainly when all necessary items are already defined
+(or the user chooses to define them through *Item Definition Files*, see
+the *Advanced* guide) and there is no more need to clutter the GUI with
+"useless" menu entries. This mode has also the side effect of saving some
+memory, although not a very big amount, by avoiding to load dialog boxes
+that will not be shown.
+
+The remaining menu entries are:
+
+* Settings...
+* Task History...
+* Pause
+* About...
+* Quit
+
+which can be useful to revert behavior to normal and to monitor tasks.
+
+To effectively enter or leave *Minimalistic Mode* the applet must be
+restarted after the option was changed.
 
 
 The History Window
@@ -464,6 +493,20 @@ The available options are:
                           first
 --kill                    close a running instance abruptly, no shutdown tasks
                           are run
+--item-add file           add items from a specially formatted file (see the
+                          *advanced* section for details); if the specified
+                          file is ``-`` the text is read from the standard
+                          input
+--item-del itemspec       delete the item specified by *itemspec*. *itemspec*
+                          has the form ``[type:]item`` where ``type:`` is
+                          optional and is is one of ``tasks``, ``conditions``
+                          and ``sighandlers`` (or an abbreviation thereof)
+                          while ``item`` is the name of an item; ``type`` can
+                          only be omitted if the name is unique
+--item-list type          print the list of currently managed items to the
+                          console, each prefixed with its type; ``type`` is
+                          optional (see above for possible values) and if
+                          specified only items of that type are listed
 --export file             save tasks, conditions and other items to a portable
                           format; the *file* argument is optional, and if not
                           specified the applet tries to save these items to a

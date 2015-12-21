@@ -22,7 +22,7 @@ cp -f $SOURCE/*.csv $DESTINATION
 # if the task was successful show a badge, if not When enters an error state
 if [ "$?" = "0" ]; then
     gvfs-mount -u $SOURCE_BASE
-    notify-send -i info "Files successfully transferred, remove device"
+    notify-send -i info "Data Gatherer" "Files successfully transferred, remove device"
 else
     exit 2
 fi
