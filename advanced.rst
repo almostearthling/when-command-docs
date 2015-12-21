@@ -202,7 +202,7 @@ following format:
   [ThisIs_Cond02]
   type: condition
   based on: file_change
-  watched path: ~/Documents
+  watched path: /home/myaccount/Documents
   tasks: NameOf_Task-01
 
   [SigHandler_03]
@@ -496,7 +496,8 @@ that **When** must observe.
 
 * ``watched path``:
   A path to be watched. Can be either the path to a file or to a directory.
-  No trailing slash is required.
+  No trailing slash is required, but it has to be a full path (it could be
+  relative if the user is sure of where **When** is launched from).
 
 User Event
 ^^^^^^^^^^
