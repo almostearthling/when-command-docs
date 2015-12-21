@@ -183,8 +183,8 @@ variables defined in the appropriate list. [#envonimport]_
 Item Definition File
 ====================
 
-With version *9.4.0-beta.1* a way has been introduced to define *items*
-(*tasks*, *conditions* and especially *signal handlers*) using text files
+In recent releases another way to define *items* (*tasks*, *conditions* and
+ especially *signal handlers*) has been introduced, that uses text files
 whose syntax is similar (although it differs in some ways) to the one used
 in common configuration files. Roughly, an *item definition* file has the
 following format:
