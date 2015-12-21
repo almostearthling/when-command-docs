@@ -128,6 +128,8 @@ The options are:
   * *Show Icon*: whether or not to show the indicator icon and menu
   * *Autostart*: set up the applet to run automatically at login
   * *Notifications*: whether or not to show notifications upon task failure
+  * *Minimalistic Mode*: disable menu entries for item definition dialog
+    boxes and in part reduce memory footprint
   * *Icon Theme*: *Guess* to let the application decide, otherwise one of
     *Dark* (light icons for dark themes), *Light* (dark icons for light
     themes), and *Color* for colored icons that should be visible on all
@@ -202,6 +204,7 @@ should be suitable for most setups:
   user events = false
   file notifications = false
   environment vars = true
+  minimalistic mode = false
 
   [Concurrency]
   max threads = 5

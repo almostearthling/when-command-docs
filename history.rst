@@ -7,6 +7,7 @@ Version 0.9.4 (beta)
 
 * Manage items from the command line
 * Use human-readable files to define items
+* Minimalistic Mode
 * Bug fixes
 
 
