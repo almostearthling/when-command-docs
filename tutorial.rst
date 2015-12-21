@@ -465,10 +465,10 @@ called ``gather_data.sh`` in ``~/.local/bin``, containing the following text:
 
   # if the task was successful show a badge, if not When enters an error state
   if [ "$?" = "0" ]; then
-      gvfs-mount -u $SOURCE_BASE
-      notify-send -i info "Files successfully transferred, please remove device"
+    gvfs-mount -u $SOURCE_BASE
+    notify-send -i info "Data Gatherer" "Files successfully transferred, remove device"
   else
-      exit 2
+    exit 2
   fi
 
 
