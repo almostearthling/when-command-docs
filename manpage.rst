@@ -266,7 +266,7 @@ values that the dialog box shows by default.
 * ``command``:
   The value indicates the full command line to be executed when the task
   is run, it can contain every legal character for a shell command.
-  *This entry is mandatory:* omission invalidates the file.
+  *This entry is mandatory*: omission invalidates the file.
 * ``environment variables``:
   A multi-value entry that includes a variable definition on each line.
   Each definition has the form ``VARNAME=value``, must be indented and
@@ -382,8 +382,8 @@ The following entries are common to all types of condition:
   - ``event`` for conditions based on *stock* events
   - ``file_change`` when file or directory changes trigger the condition
   - ``user_event`` for conditions arising on user defined events: these
-    can only be used if user events are enable, otherwise the definition
-    file is considered *invalid*.
+    can only be used if user events are enabled, otherwise the definition
+    file is discarded.
 
   Any other value will invalidate the definition file.
 * ``task names``:

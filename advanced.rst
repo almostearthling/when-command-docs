@@ -25,12 +25,15 @@ order to keep the applet as simple as possible. Also, no more than either a
 file or a directory can be monitored by a condition: in order to monitor more
 items, multiple conditions must be specified.
 
-As said above, this feature is optional, and in order to make it available
-the ``pyinotify`` library has to be installed. On Ubuntu this can be achieved
-via the package manager (``sudo apt-get install python3-pyinotify``);
-alternatively ``pip`` can be used to let Python directly handle the
-installation: ``sudo pip3 install pyinotify`` (this will ensure that the
-latest release is installed, but package updates are left to the user).
+.. Warning::
+  As said above, this feature is optional: to make it available the
+  ``pyinotify`` package has to be installed. The Ubuntu package manager
+  can handle it (``sudo apt-get install python3-pyinotify``); alternatively
+  ``pip`` can be used to let Python install it directly:
+  ``sudo pip3 install pyinotify`` (this will ensure that the latest release
+  is installed, but package updates are left to the user). If **When** is
+  installed via a PPA the package manager will take care to install
+  all the dependencies, including the optional ones.
 
 There are also some configuration steps at system level that might have to be
 performed if filesystem monitoring does not work properly: when a monitored
@@ -112,23 +115,23 @@ following data:
 * *comparison* (consisting of an operator, possibly negated) specifies how
   the value is compared to a test value: the supported operators are
 
-  1. `=` (equality): the operands are converted to the same type, and the
+  1. ``=`` (equality): the operands are converted to the same type, and the
      test is successful when they are identical; please notice that, in case
      of boolean parameters, the only possible comparison is equality (and the
      related *not* equality): all other comparisons, if used, will evaluate
      to false and prevent condition activation, and the comparison value
      should be either `true` or `false`
-  2. `CONTAINS`: the test evaluates to true when either the test string is a
+  2. ``CONTAINS``: the test evaluates to true when either the test string is a
      substring of the selected value, or the parameter is a list (or struct,
      or dictionary: for dictionaries it only searches for values and not for
      keys though), no *Sub #* has been specified, and the test value is in
      the compound value
-  3. `MATCHES`: the test value is treated as a *regular expression* and the
+  3. ``MATCHES``: the test value is treated as a *regular expression* and the
      selected value, which must be a string, matches it
-  4. `<`: the selected value is less than the test value (converted to the
-     parameter selected value type)
-  5. `>`: the selected value is greater than the test value (converted to
-     the parameter selected value type)
+  4. ``<`` (less-than): the selected value is less than the test value
+     (converted to the parameter inferred or introspected value type)
+  5. ``>`` (greater-than): the selected value is greater than the test value
+     (converted to the parameter inferred or introspected value type)
 
 * *Test Value* is the user provided value to compare the parameter value to:
   in most cases it is treated as being of the same type as the selected
@@ -184,7 +187,7 @@ Item Definition File
 ====================
 
 In recent releases another way to define *items* (*tasks*, *conditions* and
- especially *signal handlers*) has been introduced, that uses text files
+especially *signal handlers*) has been introduced, that uses text files
 whose syntax is similar (although it differs in some ways) to the one used
 in common configuration files. Roughly, an *item definition* file has the
 following format:
@@ -203,7 +206,7 @@ following format:
   type: condition
   based on: file_change
   watched path: /home/myaccount/Documents
-  tasks: NameOf_Task-01
+  task names: NameOf_Task-01
 
   [SigHandler_03]
   type: signal_handler
@@ -254,7 +257,7 @@ values that the dialog box shows by default.
 * ``command``:
   The value indicates the full command line to be executed when the task
   is run, it can contain every legal character for a shell command.
-  *This entry is mandatory:* omission invalidates the file.
+  *This entry is mandatory*: omission invalidates the file.
 * ``environment variables``:
   A multi-value entry that includes a variable definition on each line.
   Each definition has the form ``VARNAME=value``, must be indented and
@@ -370,8 +373,8 @@ The following entries are common to all types of condition:
   - ``event`` for conditions based on *stock* events
   - ``file_change`` when file or directory changes trigger the condition
   - ``user_event`` for conditions arising on user defined events: these
-    can only be used if user events are enable, otherwise the definition
-    file is considered *invalid*.
+    can only be used if user events are enabled, otherwise the definition
+    file is discarded.
 
   Any other value will invalidate the definition file.
 * ``task names``:
