@@ -312,8 +312,11 @@ When the Gnome editor starts, enter the following text:
 
 ::
 
-  #!/bin/bash
-  find . -type f -name '*~' -exec echo '{}' \; -exec trash '{}' \;
+  #!/bin/sh
+  find . -path ./.local/share/Trash -prune \
+      -o -type f -name '*~' \
+      -exec echo '{}' \; \
+      -exec trash -f '{}' \;
 
 save the file, exit the editor and from the same terminal window run
 
@@ -321,7 +324,11 @@ save the file, exit the editor and from the same terminal window run
 
   $ chmod a+x housekeep.sh
 
-to make the script executable.
+to make the script executable. The reason for the line that discards stuff
+in ``./.local/share/Trash`` is that we don't want files already in the
+trash bin to be handled again, and we are pretty sure that such a folder
+only exists in the user home directory -- so that this limitation only
+has effect when the startup directory is the home directory.
 
 The ``housekeep.sh`` script is available here_.
 
