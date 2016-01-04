@@ -137,7 +137,7 @@ Install and Setup Unison
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 A brief description follows on how to setup a simple profile in *Unison* for
-the sake of this example. This utility can do much more, please refer to the
+the sake of this example. This utility can do much more, refer to the
 specific documentation for details.
 
 Installation

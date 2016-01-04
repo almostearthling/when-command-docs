@@ -15,9 +15,7 @@ Contents:
    description.rst
    advanced.rst
    tutorial.rst
-   contributing.rst
    credits.rst
-   history.rst
    license.rst
 
 

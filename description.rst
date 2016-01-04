@@ -205,9 +205,7 @@ There are several types of condition available:
    definition dialog box. The command is run in the same environment (and
    startup directory) as **When** at the moment it was started.
 4. **Idle time based:** When the session has been idle for the specified amount
-   of time the tasks are executed. This actually is implemented as a shortcut
-   to the command based condition built using the ``xprintidle`` command,
-   which must be installed for the applet to work properly.
+   of time the tasks are executed.
 5. **Event based:** The tasks are executed when a certain session or system
    event occurs. The following events are supported:
 
@@ -301,8 +299,9 @@ The options are:
 
   * *Application Clock Tick Time*: represents the tick frequency of the
     application clock, sort of a heartbeat, each tick verifies whether or not
-    a condition has to be checked; this option is called ``tick seconds`` in
-    the configuration file
+    a condition has to be checked and detects if conditions that depend on
+    external events have been already enqueued and are ready to trigger tasks;
+    this option is called ``tick seconds`` in the configuration file
   * *Condition Check Skip Time*: conditions that require some "effort" (mainly
     the ones that depend on an external command) will skip this amount of
     seconds from previous check to perform an actual test, should be at least
@@ -564,8 +563,8 @@ an error.
   appropriate chapter for more information.
 
 .. [#inotify] This is an optional feature, and could lack on some systems:
-  to enable it the ``pyinotify`` library must be installed, please refer to
-  the instructions below.
+  to enable it the ``pyinotify`` library must be installed, refer to the
+  instructions below.
 
 .. [#confhidden] I was doubtful about providing the option, then just decided
   to implement it and provide a safety net anyway.

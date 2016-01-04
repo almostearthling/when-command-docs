@@ -185,35 +185,6 @@ it follows some conventions common to most configuration files. The sections
 in the file might slightly differ from the tabs in the *Settings* dialog, but
 the entries are easily recognizable.
 
-By default the applet creates a file with the following configuration, which
-should be suitable for most setups:
-
-::
-
-  [Scheduler]
-  tick seconds = 15
-  skip seconds = 60
-  preserve pause = true
-
-  [General]
-  show icon = true
-  autostart = false
-  notifications = true
-  log level = warning
-  icon theme = guess
-  user events = false
-  file notifications = false
-  environment vars = true
-  minimalistic mode = false
-
-  [Concurrency]
-  max threads = 5
-
-  [History]
-  max items = 100
-  log size = 1048576
-  log backups = 4
-
 Manual configuration can be particularly useful to bring back the program
 icon once the user decided to hide it losing access to the menu,
 by setting the ``show icon`` entry to ``true``. Another way to force access to
@@ -225,19 +196,18 @@ instance is running.
 Item Definition File
 ====================
 
-With version *9.4.0-beta.1* a way has been introduced to define *items*
-(*tasks*, *conditions* and especially *signal handlers*) using text files
-whose syntax is similar (although it differs in some ways) to the one used
-in common configuration files.
+The *items* (*tasks*, *conditions* and especially *signal handlers*) managed
+by **When** can also be defined and created using text files whose syntax is
+similar to the one used in common configuration files.
 
-Item names are case sensitive and follow the same rules
-as the related *Name* entries in dialog boxes: only names that begin with an
-alphanumeric character and continue with *alphanumerics*, *underscores* and
-*dashes* (that is, no spaces) are accepted. Entries must be followed by
-colons and in case of entries that support lists the lists must be indented
-and span multiple lines. Complex values are rendered using commas to separate
-sub-values. The value for each entry is considered to be the string beginning
-with the first non-blank character after the colon.
+Item names are case sensitive and follow the same rules as the related *Name*
+entries in dialog boxes: only names that begin with an alphanumeric character
+and continue with *alphanumerics*, *underscores* and *dashes* (that is, no
+spaces) are accepted. Entries must be followed by colons and in case of
+entries that support lists the lists must be indented and span multiple lines.
+Complex values are rendered using commas to separate sub-values. The value for
+each entry is considered to be the string beginning with the first non-blank
+character after the colon.
 
 .. Warning::
   Even a single error, be it syntactical or due to other possibly more
@@ -543,7 +513,7 @@ To export all items to a file, the following command can be used:
   $ when-command --export [filename.dump]
 
 where the file argument is optional. If given, all items will be saved
-to the specified file, otherwise in a known location in ``.config``. The
+to the specified file, otherwise in a known location in ``~/.config``. The
 saved file is not intended to be edited by the user -- it uses a JSON
 representation of the internal objects.
 

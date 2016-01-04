@@ -116,8 +116,8 @@ following data:
   the value is compared to a test value: the supported operators are
 
   1. ``=`` (equality): the operands are converted to the same type, and the
-     test is successful when they are identical; please notice that, in case
-     of boolean parameters, the only possible comparison is equality (and the
+     test is successful when they are identical; notice that, in case of
+     boolean parameters, the only possible comparison is equality (and the
      related *not* equality): all other comparisons, if used, will evaluate
      to false and prevent condition activation, and the comparison value
      should be either `true` or `false`
@@ -535,7 +535,7 @@ To export all items to a file, the following command can be used:
   $ when-command --export [filename.dump]
 
 where the file argument is optional. If given, all items will be saved
-to the specified file, otherwise in a known location in ``.config``. The
+to the specified file, otherwise in a known location in ``~/.config``. The
 saved file is not intended to be edited by the user -- it uses a JSON
 representation of the internal objects.
 

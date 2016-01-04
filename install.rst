@@ -108,7 +108,7 @@ has the advantage of automatically resolving dependencies and to directly
 set up a fairly stable release with the recommended layout, and to let the
 user automatically update the software in the ordinary way.
 
-To add the repository, please issue
+To add the repository, you can simply issue
 
 ::
 
