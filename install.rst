@@ -179,7 +179,7 @@ that **When** needs to run correctly and an active autostart entry, that is:
 * ``~/.local/share/when-command`` where it stores resources and logs (in
   the ``log`` subdirectory).
 
-Please note that the full path to the command has to be used on the first run
+Note that the full path to the command has to be used on the first run
 if the ``/opt`` based package or the manual installation were chosen: in this
 way **When** can recognize the installation type and set up the icons and
 shortcuts properly.
