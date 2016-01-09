@@ -30,17 +30,18 @@ scheduler runs in the background, and displays an indicator applet icon for
 user interaction.
 
 It is not generally intended as a replacement to cron_ and the
-`Gnome Task Scheduler`_, although to some extent these utilities might overlap.
-**When** is intended to be more flexible, although less precise, and to provide
-an alternative to more complicated solutions -- such as the implementation of
-*cron* jobs that check for a particular condition and execute commands when the
-condition is verified. In such spirit, **When** is not as fine-grained in terms
-of doing things on a strict time schedule: the **When** approach is that
-"*when* a certain condition is met, *then* something has to be done". The
-condition is checked periodically, and the "countermeasure" is taken
-*subsequently* -- although not *immediately* in most cases. In fact, and with
-the default configuration, the delay can reach a couple of minutes in the worst
-case.
+`Gnome Task Scheduler`_, although to some extent these utilities might
+overlap. **When** is intended to be more flexible, although less precise,
+and to provide an alternative to more complicated solutions -- such as
+the implementation of *cron* jobs that check for a particular condition
+and execute commands when the condition is verified. In such spirit,
+**When** is not as fine-grained in terms of doing things on a strict time
+schedule: the **When** approach is that "*when* a certain condition is met,
+*then* something has to be done". The condition is checked periodically,
+and the countermeasure is taken *subsequently* in a relaxed fashion --
+this means that it might not occur *immediately* in most cases. In fact
+and with the default configuration, the delay could also consist of a
+couple of minutes in the worst case.
 
 
 .. _source: https://github.com/almostearthling/when-command

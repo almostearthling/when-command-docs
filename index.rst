@@ -17,10 +17,3 @@ Contents:
    tutorial.rst
    credits.rst
    license.rst
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`search`
