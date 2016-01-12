@@ -398,12 +398,11 @@ that will not be shown.
 The remaining menu entries are:
 
 * Settings...
-* Task History...
 * Pause
 * About...
 * Quit
 
-which can be useful to revert behavior to normal and to monitor tasks.
+which can be useful to revert behavior to normal.
 
 To effectively enter or leave *Minimalistic Mode* the applet must be
 restarted after the option was changed.
@@ -529,9 +528,10 @@ Some trivial switches are also available:
                           if present
 -v, --verbose             show output for some options; normally the applet
                           would not display any output to the terminal unless
-                          ``-v`` is specified, the only exception being
-                          ``--version`` that prints out the version string
-                          anyway.
+                          ``-v`` is specified, the only exceptions being
+                          ``--item-list`` that lists all known *items* to
+                          the standard output and ``--version`` that prints
+                          out the version string anyway.
 
 Please note that whenever a command line option is given, the applet will not
 "stay resident" if there is no running instance. On the other side, if the user

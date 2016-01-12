@@ -56,3 +56,49 @@ other sites in the StackExchange_ network.
 .. _UnityLaunchersAndDesktopFiles: https://help.ubuntu.com/community/UnityLaunchersAndDesktopFiles
 .. _StackOverflow: http://stackoverflow.com/
 .. _StackExchange: http://stackexchange.com/
+
+
+Bugs and Errors
+===============
+
+**When** is hosted on GitHub_: the repository contains the most recent stable
+code as well as developement and feature branches. The *master* branch might
+include more recent code with respect to the packaged distributions. The
+repository_ for **When** also gives access to the bug tracking system, in the
+form of the *Issues* mechanism. *Issues* can be used to provide information
+on bugs or features that could make **When** more useful.
+
+Before filing an *issue* please consider that
+
+* in the case of a bug some data are needed:
+
+  - **When** version
+  - Linux distribution and complete version
+  - Python 3.x detailed version
+  - How **When** was installed (which package, or how source was obtained)
+  - Steps to reproduce the problem.
+
+  Before filing a bug please verify that there is no open equivalent issue,
+  or that the issue is not a particular case of an already open one.
+
+* for a feature request the following should be taken into account:
+
+  - whether or not it would make the applet more useful or usable
+  - if the feature being requested is just a shortcut for something that
+    can already be done via configuration (for instance, adding an event
+    that could be provided using a *signal handler*)
+  - how it would impact on **When** in terms of weight and responsiveness
+  - the impact that it would have on backward compatibility.
+
+  Consider that **When** should try to remain as small as possible, it
+  already eats up around 20MBytes as it is: most effort in its development
+  should go towards simplification and extendability via external tools.
+
+The repository_ is also the starting point for other forms of contributions.
+There is a separate_ documentation for contributors, that tries to cover
+most possible areas.
+
+
+.. _GitHub: https://github.com/
+.. _repository: https://github.com/almostearthling/when-command
+.. _separate: http://contributing-to-when.readthedocs.org/
