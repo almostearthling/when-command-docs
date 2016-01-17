@@ -39,8 +39,7 @@ The available options are:
                           existing instance [#busevent]_
 -R, --reset-config        reset applet configuration to default, requires the
                           applet to be shut down with an appropriate switch
--I, --show-icon           show applet icon, the icon will be shown at the next
-                          startup
+-I, --show-icon           show applet icon
 -T, --install             install or reinstall application icon and autostart
                           icon, requires applet to be shut down with an
                           appropriate switch

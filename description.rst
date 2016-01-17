@@ -339,12 +339,11 @@ The options are:
     configuration entry is ``environment vars``.
 
 The configuration is *immediately stored upon confirmation* to the
-configuration file, although some settings (such as *Notifications*,
-*Icon Theme*, and most advanced settings) might require a restart of the
-applet. The configuration file can be edited with a standard text editor, and
-it follows some conventions common to most configuration files. The sections
-in the file might slightly differ from the tabs in the *Settings* dialog, but
-the entries are easily recognizable.
+configuration file, although some settings (such as *Notifications*) might
+require a restart of the applet. The configuration file can be edited with
+a standard text editor, and it follows some conventions common to most
+configuration files. The sections in the file might slightly differ from
+the tabs in the *Settings* dialog, but the entries are easily recognizable.
 
 By default the applet creates a file with the following configuration, which
 should be suitable for most setups:
@@ -463,8 +462,7 @@ The available options are:
                           existing instance [#busevent]_
 -R, --reset-config        reset applet configuration to default, requires the
                           applet to be shut down with an appropriate switch
--I, --show-icon           show applet icon, the icon will be shown at the next
-                          startup
+-I, --show-icon           show applet icon
 -T, --install             install or reinstall application icon and autostart
                           icon, requires applet to be shut down with an
                           appropriate switch
