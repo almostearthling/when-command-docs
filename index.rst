@@ -14,6 +14,7 @@ Contents:
    install.rst
    description.rst
    advanced.rst
+   wizard.rst
    tutorial.rst
    credits.rst
    license.rst
