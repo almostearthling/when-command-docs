@@ -86,7 +86,7 @@ while for the manager application, the subcommand changes:
   The ``when-wizard`` command is already marked as *executable* in the
   repository, however, should the shell refuse to execute the command,
   it is sufficient to ``cd`` to the installation directory and issue
-  ``chmod a+x when-command``.
+  ``chmod a+x when-wizard``.
 
 Using the **When Wizard Manager** it is possible to create icons for both
 the wizard and the management application: once the **When Wizard Manager**
