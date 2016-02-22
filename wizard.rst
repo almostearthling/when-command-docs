@@ -81,10 +81,18 @@ while for the manager application, the subcommand changes:
   ~$ cd Apps/when-wizard
   ~/Apps/when-wizard$ ./when-wizard start-manager
 
+.. Note::
+
+  The ``when-wizard`` command is already marked as *executable* in the
+  repository, however, should the shell refuse to execute the command,
+  it is sufficient to ``cd`` to the installation directory and issue
+  ``chmod a+x when-command``.
+
 Using the **When Wizard Manager** it is possible to create icons for both
 the wizard and the management application: once the **When Wizard Manager**
 started, choose the *Utility* tab and click on the check box labeled
-*Create or Restore Icons for Wizard Applications*.
+*Create or Restore Icons for Wizard Applications*, then click the *Apply*
+button:
 
 .. image:: _static/when-wizard_man02.png
 
