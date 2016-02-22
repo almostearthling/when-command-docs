@@ -139,8 +139,8 @@ wizard interface: [#whenleftalone]_
 .. image:: _static/when-wizard_man03.png
 
 To remove an action it is sufficient to select it from the list (a more
-detailed description is shown below) and click the *Delete* button. After
-confirmation, the action is completely removed from the system.
+detailed description is shown under the list) and click the *Delete* button.
+After confirmation, the action is completely removed from the system.
 
 
 .. [#warnuseboth] If you want to use *both* types of interface, avoid names
