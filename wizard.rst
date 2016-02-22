@@ -136,7 +136,7 @@ Actions can be removed through the **When Wizard Manager** application. On
 startup it shows a list containing the actions currently defined using the
 wizard interface: [#whenleftalone]_
 
-.. image:: _static/when-wizard_man02.png
+.. image:: _static/when-wizard_man03.png
 
 To remove an action it is sufficient to select it from the list (a more
 detailed description is shown below) and click the *Delete* button. After
