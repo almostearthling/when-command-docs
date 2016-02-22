@@ -125,7 +125,7 @@ user:
 
 .. image:: _static/when-wizard_wiz03.png
 
-The configuration page depens obviously on the selected item. Once the task
+The configuration page depends obviously on the selected item. Once the task
 and circumstance have been chosen and possibly configured, by clicking the
 *Forward* button it is possible to review what has been configured:
 
