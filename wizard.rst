@@ -164,7 +164,7 @@ History visualization is quite trivial: each history record is shown as a
 line in the visible list, prefixed with startup time and duration of the
 related action. The tuning and utility page (the one that can be used to
 create or restore icons too) also does not need a lot of explaination: it
-just allows to adopt a set of options for **When**that let it better blend
+just allows to adopt a set of options for **When** that let it better blend
 with a wizard based usage, including activation of user-defined events and
 file monitoring, and *Minimalistic Mode* for the applet indicator icon.
 Settings forced through this page are permanent and can only be reset from
