@@ -55,7 +55,7 @@ anyway: it is sufficient to either clone the GitHub repository_ or download
 and unpack the zip_ file from the master branch. It may be useful to move
 the resulting directory (and maybe rename it in case the zip file as been
 used) in a folder where applications reside. Assuming that the zip file
-method was chosend and that the ``when-wizard-master.zip`` file is now in
+method was chosen and that the ``when-wizard-master.zip`` file is now in
 ``~/Downloads``:
 
 ::
@@ -99,7 +99,6 @@ button:
 The icons for **When Wizard** and for the **When Wizard Manager** should
 now be available in the *Dash* or whatever menu system is used.
 
-
 .. _repository: https://github.com/almostearthling/when-wizard.git
 .. _zip: https://github.com/almostearthling/when-wizard/archive/master.zip
 
@@ -127,7 +126,7 @@ user:
 
 The configuration page depends obviously on the selected item. Once the task
 and circumstance have been chosen and possibly configured, by clicking the
-*Forward* button it is possible to review what has been configured:
+*Forward* button it is possible to review the action details:
 
 .. image:: _static/when-wizard_wiz04.png
 
@@ -149,6 +148,70 @@ wizard interface: [#whenleftalone]_
 To remove an action it is sufficient to select it from the list (a more
 detailed description is shown under the list) and click the *Delete* button.
 After confirmation, the action is completely removed from the system.
+
+
+Other Uses for the When Wizard Manager
+======================================
+
+There are some more uses for the manager application, organized in pages:
+
+* visualization of action history
+* **When Wizard** plugin management
+* third-party provided *item sets* management
+* tuning of the underlying **When** scheduler instance.
+
+History visualization is quite trivial: each history record is shown as a
+line in the visible list, prefixed with startup time and duration of the
+related action. The tuning and utility page (the one that can be used to
+create or restore icons too) also does not need a lot of explaination: it
+just allows to adopt a set of options for **When**that let it better blend
+with a wizard based usage, including activation of user-defined events and
+file monitoring, and *Minimalistic Mode* for the applet indicator icon.
+Settings forced through this page are permanent and can only be reset from
+the *Settings* dialog box in the main **When** interface. Maybe it's worth
+to mention that the so-called *lazy mode* is lazy indeed, and in some cases
+the time between the conditional event and its consequence can be more than
+six minutes: it is mainly useful when the computer is left alone most of
+the time while performing tasks (for example: data collection, or very big
+downloads and so on), while for other configurations *normal reactivity* is
+possibly the suitable setting -- which corresponds to the default values
+in **When** configuration.
+
+The existence of a *plugin management* page reflects one important aspect
+of the **When Wizard** application: functionality can be extended through
+add-ons. Such add-ons (or *plugins*, as they are named in the UI) provide
+ways to encapsulate common tasks and to grant access to system events and
+environmental conditions in a simple way: the user might need to configure
+a small number of options in many cases, and in some cases not even that.
+*Plugins* can be downloaded in packaged form, and installed and removed
+from the manager interface.
+
+.. Warning::
+
+  Particular care must be taken when installing a plugin: plugins should
+  only be installed from trusted sources much in the same way as software
+  packages. In fact, although plugin code is never run with administrator
+  privileges, a plugin may install scripts that have access to valuable
+  information.
+
+*Plugins* come packaged with a ``.wwpz`` extension: if the user writes
+by himself the path to the package in the appropriate text entry, she or he
+can use whatever file specification. If the file chooser dialog box is used
+only files with the ``.wwpz`` extension will be shown. Plugins can also be
+removed, but *only if there is no action using them*: to remove a plugin
+one has to make sure that all related actions have been removed too.
+
+Last but not least, the *Import* page of the **When Wizard Manager** offers
+the possibility to import preconfigured **When** items via provided
+*Item Definition Files*. Such files can contain single items as well as
+item sets, and in fact some third-party defined actions might come packaged
+in an *Item Definition File*. Files of this type should have a ``.widf``
+extension, but the same considerations yield as for the ``.wwpz`` files.
+
+Some plugins (namely, the ones that depend on user defined events) may
+require that the user imports an *Item Definition File*. Such cases should
+be well documented and the developer should provide both the plugin package
+and the supporting *Item Definition File*.
 
 
 .. [#warnuseboth] If you want to use *both* types of interface, avoid names
