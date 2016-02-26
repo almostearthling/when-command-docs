@@ -136,7 +136,7 @@ closing the window). If the *Forward* button is clicked, the action is
 registered in **When**.
 
 
-Removing Actions
+Managing Actions
 ================
 
 Actions can be removed through the **When Wizard Manager** application. On
@@ -148,6 +148,15 @@ wizard interface: [#whenleftalone]_
 To remove an action it is sufficient to select it from the list (a more
 detailed description is shown under the list) and click the *Delete* button.
 After confirmation, the action is completely removed from the system.
+
+If the user only wants to suspend checks and consequences for an action, the
+first page of the manager application also gives the possibility to just
+*disable* (and possibly *reenable*) a previously defined action: selecting
+the appropriate line in the list (enabled actions are marked with a green
+circle containing a tick mark) and clicking the *Disable* button causes the
+action to be ineffective without deleting it. It can be enabled again at a
+later time when needed, by just selecting it and clicking the *Enable*
+button.
 
 
 Other Uses for the When Wizard Manager
