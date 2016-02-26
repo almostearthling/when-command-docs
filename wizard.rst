@@ -32,15 +32,15 @@ specified in its low-level interface. [#warnuseboth]_
 While the wizard interface is used to define tasks and conditions, there is
 another utility, named the **When Wizard Manager**, which can be used for
 several tasks, including the removal of *actions* (tasks surrounded by
-circumstances) that are of no more needed, viewing the history of past
-action in a simplified way and environment tuning. Thanks to the modular,
+circumstances) that are no more needed, viewing the history of past actions
+in a simplified way and some environment tuning. Thanks to the modular,
 extensible nature of the **When Wizard** suite, the manager application can
 also be used to install plugins for actions that are not available by default
 in the distribution.
 
 .. image:: _static/when-wizard_man01.png
 
-This chapter intends to give a brief introduction to the **When Wizard**
+This chapter's intent is to give a brief introduction to the **When Wizard**
 suite: apart from some specific **When Wizard Manager** configuration options
 the interface is designed to be as intuitive as possible, and the actions
 are documented in the interface.
@@ -53,7 +53,7 @@ At the moment, there is no proper installation procedure nor distribution
 specific package. However getting the **When Wizard** to work is quite easy
 anyway: it is sufficient to either clone the GitHub repository_ or download
 and unpack the zip_ file from the master branch. It may be useful to move
-the resulting directory (and maybe rename it in case the zip file as been
+the resulting directory (and maybe rename it in case the zip file has been
 used) in a folder where applications reside. Assuming that the zip file
 method was chosen and that the ``when-wizard-master.zip`` file is now in
 ``~/Downloads``:
@@ -67,7 +67,8 @@ method was chosen and that the ``when-wizard-master.zip`` file is now in
   ~/Downloads$ cd ..
   ~$
 
-To start the **When Wizard** is now sufficient to
+or any equivalent combination of operations from the graphical shell. To
+start the **When Wizard** is now sufficient to
 
 ::
 
