@@ -128,13 +128,13 @@ user:
 
 The configuration page depends obviously on the selected item. Once the task
 and circumstance have been chosen and possibly configured, by clicking the
-*Forward* button it is possible to review the action details:
+*Next* button it is possible to review the action details:
 
 .. image:: _static/when-wizard_wiz04.png
 
 here the user is still in time to change her or his mind and either modify
 anything or completely abort the operation by pressing the *Esc* key (or just
-closing the window). If the *Forward* button is clicked, the action is
+closing the window). If the *Next* button is clicked, the action is
 registered in **When**.
 
 
@@ -218,6 +218,15 @@ the possibility to import preconfigured **When** items via provided
 item sets, and in fact some third-party defined actions might come packaged
 in an *Item Definition File*. Files of this type should have a ``.widf``
 extension, but the same considerations yield as for the ``.wwpz`` files.
+
+In some cases *Item Definition Files* might require some configuration by
+the user: if so, when the *Execute* button is pressed, a dialog box is
+shown that gives the possibility to modify some parameters.
+
+.. image:: _static/when-wizard_paramidf2.png
+
+The parameters should have been documented by who provided the file, and
+might be subject to checks to verify their correctness at confirmation time.
 
 Some plugins (namely, the ones that depend on user defined events) may
 require that the user imports an *Item Definition File*. Such cases should
