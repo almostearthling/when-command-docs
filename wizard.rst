@@ -101,6 +101,29 @@ button:
 The icons for **When Wizard** and for the **When Wizard Manager** should
 now be available in the *Dash* or whatever menu system is used.
 
+Of course the **When Wizard** suite depends on **When**, and both implicitly
+and explicitly shares the main application dependencies. If **When** has
+been installed through a package, be it via the provided PPA or using a
+downloaded ``.deb`` bundle, all dependencies for the main **When Wizard**
+applications should be already satisfied.
+
+However some of the actions that come with the default installation (that
+is, excluding third party plugins), depend on other packages that are not
+present, for example, in Ubuntu installations by default. At the moment
+the required packages, which are however present in the standard Ubuntu
+repositories, are:
+
+* *mailutils* for the actions that send an e-mail [#mailutils]_
+* *consolekit* for power management related actions.
+
+These packages can be easily installed via the usual
+
+::
+
+    $ sudo apt-get install mailutils consolekit
+
+on Ubuntu and probably its supported derivatives.
+
 .. _repository: https://github.com/almostearthling/when-wizard.git
 .. _zip: https://github.com/almostearthling/when-wizard/archive/master.zip
 
@@ -239,6 +262,10 @@ and the supporting *Item Definition File*.
   *signal handlers* when using the **When** base interface: this sequence
   is used by the wizard to identify its own items. It is otherwise perfectly
   legal and can be used if you plan to use **When** alone.
+.. [#mailutils] The mail utilities must be properly configured: when the
+  *mailutils* package is installed, the package manager triggers a
+  configuration page on the console that was used to run ``apt-get``.
+  Probably the most likely configuration is the *smart host* based one.
 .. [#whenleftalone] Other actions directly defined in **When** are left
   untouched by the **When Wizard Manager**: of course it is advisable to
   choose one and only one interface for **When** and avoid its base UI if
