@@ -47,7 +47,7 @@ other sites in the StackExchange_ network.
 
 
 .. _`Python 3.x Documentation`: https://docs.python.org/3/
-.. _`PyGTK 3.x Tutorial`: http://python-gtk-3-tutorial.readthedocs.org/en/latest/index.html
+.. _`PyGTK 3.x Tutorial`: http://python-gtk-3-tutorial.readthedocs.io/en/latest/index.html
 .. _`PyGTK 2.x Documentation`: https://developer.gnome.org/pygtk/stable/
 .. _`PyGObject Documentation`: https://developer.gnome.org/pygobject/stable/
 .. _`GTK 3.0 Documentation`: http://lazka.github.io/pgi-docs/Gtk-3.0/index.html
@@ -101,4 +101,4 @@ most possible areas.
 
 .. _GitHub: https://github.com/
 .. _repository: https://github.com/almostearthling/when-command
-.. _separate: http://contributing-to-when.readthedocs.org/
+.. _separate: http://contributing-to-when.readthedocs.io/

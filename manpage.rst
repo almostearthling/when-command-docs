@@ -10,7 +10,7 @@ tasks.
 This manual page briefly describes the *command line interface* of **When**,
 the configuration file and *item definition files*. Please refer to
 
-http://when-documentation.readthedocs.org/
+http://when-documentation.readthedocs.io/
 
 for more detailed information.
 
