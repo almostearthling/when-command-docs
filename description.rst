@@ -108,6 +108,7 @@ operations:
 * open the Settings_ dialog box
 * show the `Task History`_ window
 * *pause* and *resume* the scheduler
+* reset_ condition tests
 * show the *About* box
 * quit the applet.
 
@@ -128,6 +129,7 @@ instance or the applet configuration.
 .. _Condition: Conditions_
 .. _Settings: Configuration_
 .. _`Task History`: The History Window_
+.. _reset: Reset Condition Tests_
 
 The following paragraphs illustrate the details of the applet user interface.
 
@@ -311,7 +313,11 @@ The options are:
     will remain paused upon applet restart if it was paused when the applet (or
     session) was closed. Please notice that the indicator icon gives feedback
     anyway about the paused/non-paused state. Use ``preserve pause`` in the
-    configuration file.
+    configuration file
+  * *Reset Condition Tests on Wakeup Events*: automatically restore condition
+    checks for non recurring conditions also on wakeup (usually from suspended
+    state) as if the applet were restarted. The option is ``wakeup reset`` in
+    the configuration.
 
 3. **Advanced**
 
@@ -354,6 +360,7 @@ should be suitable for most setups:
   tick seconds = 15
   skip seconds = 60
   preserve pause = true
+  wakeup reset = true
 
   [General]
   show icon = true
@@ -438,6 +445,26 @@ a semicolon: the file can be safely imported in spreadsheets, but column
 conversions could be needed depending on your locale settings.
 
 
+Reset Condition Tests
+=====================
+
+As seen in the paragraph describing the Conditions_ definition dialog box, some
+conditions can be defined as `non-recurring`: this means that if the test has
+been successful once in the current **When** session it will be skipped ever
+since until the applet is restarted. In some cases it may be required by the
+user that such events are tested again -- for example during an unexpectedly
+long session. In this case it is possible to reset the applet, either using
+the `Command Line Interface`_ as explained below, or using the appropriate
+entry in the menu.
+
+It is also possible to configure the applet to automatically reset the tests
+for `non-recurring` events in case of a system wakeup by setting the
+appropriate scheduler options in the Configuration_ dialog. Currently this
+only supports wakeup from suspended state: this is particularly useful for
+notebook users that just close the lid to end a session, de facto hibernating
+the PC.
+
+
 Command Line Interface
 ======================
 
@@ -462,6 +489,9 @@ The available options are:
                           existing instance [#busevent]_
 -R, --reset-config        reset applet configuration to default, requires the
                           applet to be shut down with an appropriate switch
+-E, --restart-conditions  reset conditions to be checked as if they had not
+                          been already successful: it allows to restore checks
+                          also for conditions that are not recurrent
 -I, --show-icon           show applet icon
 -T, --install             install or reinstall application icon and autostart
                           icon, requires applet to be shut down with an

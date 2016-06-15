@@ -25,7 +25,7 @@ configuration or persistent state -- consisting of *tasks*, *conditions* and
 something has gone the wrong way -- such as the ``--show-settings`` switch
 mentioned above, or the ``-I`` (or ``--show-icon``) switch, to recover from an
 unwantedly hidden icon. There are also switches that grant access to "advanced"
-features, which are better covered in the next sections.
+features, which are better covered in the online documentation.
 
 The available options are:
 
@@ -36,9 +36,12 @@ The available options are:
 -t, --show-tasks          show the task dialog box of an existing instance
 -c, --show-conditions     show the condition dialog box of an existing instance
 -d, --show-signals        show the DBus signal handler editor box for an
-                          existing instance [#busevent]_
+                          existing instance
 -R, --reset-config        reset applet configuration to default, requires the
                           applet to be shut down with an appropriate switch
+-E, --restart-conditions  reset conditions to be checked as if they had not
+                          been already successful: it allows to restore checks
+                          also for conditions that are not recurrent
 -I, --show-icon           show applet icon
 -T, --install             install or reinstall application icon and autostart
                           icon, requires applet to be shut down with an
@@ -150,7 +153,11 @@ The options are:
     will remain paused upon applet restart if it was paused when the applet (or
     session) was closed. Please notice that the indicator icon gives feedback
     anyway about the paused/non-paused state. Use ``preserve pause`` in the
-    configuration file.
+    configuration file
+  * *Reset Condition Tests on Wakeup Events*: automatically restore condition
+    checks for non recurring conditions also on wakeup (usually from suspended
+    state) as if the applet were restarted. The option is ``wakeup reset`` in
+    the configuration.
 
 3. **Advanced**
 
@@ -177,20 +184,10 @@ The options are:
     subprocesses (either in *Tasks* or in *Command Based Conditions*). The
     configuration entry is ``environment vars``.
 
-The configuration is *immediately stored upon confirmation* to the
-configuration file, although some settings (such as *Notifications*,
-*Icon Theme*, and most advanced settings) might require a restart of the
-applet. The configuration file can be edited with a standard text editor, and
-it follows some conventions common to most configuration files. The sections
+The configuration file can be edited with a standard text editor, and it
+follows some conventions common to most configuration files. The sections
 in the file might slightly differ from the tabs in the *Settings* dialog, but
 the entries are easily recognizable.
-
-Manual configuration can be particularly useful to bring back the program
-icon once the user decided to hide it losing access to the menu,
-by setting the ``show icon`` entry to ``true``. Another way to force access to
-the *Settings* dialog box when the icon is hidden is to invoke the applet from
-the command line using the ``--show-settings`` (or ``-s``) switch when an
-instance is running.
 
 
 Item Definition File
@@ -283,7 +280,7 @@ Signal Handlers
 ---------------
 
 Signal handlers are an advanced feature, and cannot be defined if they are
-not enabled in the configuration: read the appropriate section on how to
+not enabled in the configuration: read the appropriate paragraph on how to
 enable *user defined events*. If user events are enabled, the following
 entries can be used:
 
@@ -528,8 +525,3 @@ where the ``filename.dump`` parameter must correspond to a file previously
 generated using the ``--export`` switch. If no argument is given, **When**
 expects that items have been exported giving no file specification to the
 ``--export`` switch. After import **When** can be restarted.
-
-
-.. [#busevent] This is an advanced feature and is not available by default.
-  It has to be enabled in the program settings to be accessible. Refer to the
-  appropriate chapter for more information.
