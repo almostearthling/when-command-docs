@@ -146,7 +146,7 @@ archive located in ``~/Downloads``, and that the user wants to install
   $ unzip ~/Downloads/when-command-master.zip
   $ mv when-command-master When
   $ cd When
-  $ rm -Rf po temp scripts .git* setup.* MANIFEST.in share/icons
+  $ rm -Rf po scripts .temp .git* setup.* MANIFEST.in share/icons
   $ chmod a+x share/when-command/when-command.py
   $ ln -s share/when-command/when-command.py when-command
   $ $HOME/Applications/When/when-command --install
