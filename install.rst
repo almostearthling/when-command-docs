@@ -146,20 +146,21 @@ archive located in ``~/Downloads``, and that the user wants to install
   $ unzip ~/Downloads/when-command-master.zip
   $ mv when-command-master When
   $ cd When
-  $ rm -Rf po scripts .temp .git* setup.* MANIFEST.in share/icons
+  $ rm -Rf po scripts .temp .git* setup.* MANIFEST.in stdeb.*
+  $ for x in applications doc icons man ; do rm -Rf share/$x ; done
   $ chmod a+x share/when-command/when-command.py
   $ ln -s share/when-command/when-command.py when-command
   $ $HOME/Applications/When/when-command --install
 
-The ``rm`` command is **not** mandatory: it is only required to remove files
-that are not used by the installed applet and to avoid a cluttered setup.
-Also, with this installation procedure, **When** can only be invoked from
+The ``rm`` and ``for`` statements are **not** mandatory: they are only used to
+remove stuff that is not used by the installed applet and to avoid a cluttered
+setup. Also, with this installation method, **When** can only be invoked from
 the command line using the full path (``$HOME/Applications/When/when-command``
 in the example): to use the ``when-command`` shortcut,
 ``$HOME/Applications/When`` has to be included in the `PATH` variable in
 ``.bashrc``. This means for instance that the creation of a `symbolic link` in
 a directory already in the user path can cause malfunctions to **When** on
-command line invocation.
+command line invocation. [#sourcearchive]_
 
 This installation method is useful in several cases: it can be used for
 testing purposes (it can supersede an existing installation, using the
@@ -235,6 +236,12 @@ Of course it has to be shut down before, for example by killing it via
 
 .. [#autostart] Although an autostart entry is created, it remains inactive
   by default if the configuration is not modified in the applet settings.
+
+.. [#sourcearchive] A ``.tar.gz`` archive is provided along with
+  packaged releases, which is the result of a source-based installation:
+  it extracts all the required files in a directory named ``When``, but the
+  extraction directory can be moved before the ``when-command --install``
+  step.
 
 .. [#extrafiles] Not all ``rm`` operations shown here will actually have
   effect: the instructions follow the most generic case, and some of the
